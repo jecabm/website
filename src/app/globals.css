@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/*
+  Regatta Registers — Design Tokens
+  Industrial enterprise SaaS. Light theme. 8px spacing grid (use even step values).
+  Tailwind v4 reads @theme tokens and generates the matching utilities
+  (e.g. --color-brand-500 -> bg-brand-500 / text-brand-500 / border-brand-500).
+*/
+@theme {
+  /* ---- Typography ---- */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ---- Brand / Primary — Orange (#F28500 main, #FFBC6B light, #B76502 dark) ---- */
+  --color-brand-50:  #fff8ed;
+  --color-brand-100: #ffefd0;
+  --color-brand-200: #ffdda0;
+  --color-brand-300: #FFBC6B;
+  --color-brand-400: #f9a030;
+  --color-brand-500: #F28500;
+  --color-brand-600: #d17300;
+  --color-brand-700: #B76502;
+  --color-brand-800: #8f4e02;
+  --color-brand-900: #6e3c00;
+
+  /* ---- Neutral / Secondary — #546570 main, #272B2E dark, #EFEEEE light ---- */
+  --color-ink-50:  #f7f8f8;
+  --color-ink-100: #EFEEEE;
+  --color-ink-200: #d8dcde;
+  --color-ink-300: #b8c0c5;
+  --color-ink-400: #8a979f;
+  --color-ink-500: #546570;
+  --color-ink-600: #475a64;
+  --color-ink-700: #3a4a53;
+  --color-ink-800: #2f3c44;
+  --color-ink-900: #272B2E;
+  --color-ink-950: #1a1e21;
+
+  /* ---- Status — green / amber / red ---- */
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --color-info: #2563eb;
+  --color-info-soft: #dbeafe;
+
+  /* ---- Semantic surfaces ---- */
+  --color-background: #ffffff;
+  --color-foreground: var(--color-ink-900);
+  --color-muted: var(--color-ink-100);
+  --color-muted-foreground: var(--color-ink-500);
+  --color-border: var(--color-ink-200);
+
+  /* ---- Radii ---- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* ---- Elevation ---- */
+  --shadow-card: 0 1px 2px 0 rgb(39 43 46 / 0.04), 0 1px 3px 0 rgb(39 43 46 / 0.06);
+  --shadow-elevated: 0 4px 12px -2px rgb(39 43 46 / 0.08), 0 2px 6px -2px rgb(39 43 46 / 0.06);
+  --shadow-popover: 0 12px 32px -8px rgb(39 43 46 / 0.16);
+}
+
+/* Force override — ensures correct tokens even when Turbopack HMR skips @theme recompile */
+:root {
+  --color-brand-50:  #fff8ed;
+  --color-brand-100: #ffefd0;
+  --color-brand-200: #ffdda0;
+  --color-brand-300: #FFBC6B;
+  --color-brand-400: #f9a030;
+  --color-brand-500: #F28500;
+  --color-brand-600: #d17300;
+  --color-brand-700: #B76502;
+  --color-brand-800: #8f4e02;
+  --color-brand-900: #6e3c00;
+
+  --color-ink-50:  #f7f8f8;
+  --color-ink-100: #EFEEEE;
+  --color-ink-200: #d8dcde;
+  --color-ink-300: #b8c0c5;
+  --color-ink-400: #8a979f;
+  --color-ink-500: #546570;
+  --color-ink-600: #475a64;
+  --color-ink-700: #3a4a53;
+  --color-ink-800: #2f3c44;
+  --color-ink-900: #272B2E;
+  --color-ink-950: #1a1e21;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users (accessibility) */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ─── Cinematic animation system ───────────────────────────────────────────── */
+
+@keyframes fade-slide-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.95) translateY(14px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+@keyframes glow-drift {
+  0%, 100% { transform: translate(0, 0)       scale(1);    opacity: 0.65; }
+  50%       { transform: translate(4%, 2.5%)   scale(1.06); opacity: 1;    }
+}
+
+/* Page-load entry — apply directly to elements, respects animation-delay */
+.animate-fade-slide-up {
+  opacity: 0;
+  animation: fade-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  opacity: 0;
+  animation: scale-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-glow-drift {
+  animation: glow-drift 9s ease-in-out infinite;
+}
+
+/* Scroll-reveal — toggled by useInView hook adding .is-visible */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity  0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
