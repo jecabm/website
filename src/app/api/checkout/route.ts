@@ -1,3 +1,14 @@
+import { NextResponse } from "next/server";
+
+// Checkout con Stripe aún no habilitado. Ver implementación pendiente abajo.
+export async function POST() {
+  return NextResponse.json(
+    { error: "Checkout no disponible todavía" },
+    { status: 501 }
+  );
+}
+
+// --- Implementación pendiente (habilitar cuando Stripe esté configurado) ---
 // import { NextRequest, NextResponse } from "next/server";
 // import Stripe from "stripe";
 //
