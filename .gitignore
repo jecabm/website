@@ -24,6 +24,11 @@
 .DS_Store
 *.pem
 
+# Claude Code
+.claude/
+CLAUDE.md
+ARCHITECTURE.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -40,9 +45,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.idea
-package-lock.json
+# IDE
+.idea/
 
-#AI Agent
-*.md
-!README.md
+# lockfile
+package-lock.json

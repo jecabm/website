@@ -5,8 +5,12 @@ import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { ArrowLeft } from "lucide-react";
 import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/preview";
 import { postBySlugQuery, postsListQuery } from "@/sanity/queries";
 import { Section } from "@/components/ui/section";
+import { resolveMetadata, type SanitySeo } from "@/lib/seo";
+import { getSiteSettings } from "@/lib/site-settings";
+import { getRequestCountry } from "@/lib/request-country";
 
 type ImageAsset = { url?: string };
 type CoverImage = { asset?: ImageAsset; alt?: string };
@@ -40,12 +44,20 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await client.fetch(postBySlugQuery, { slug });
+  const [post, globalSeo, country] = await Promise.all([
+    sanityFetch(postBySlugQuery, { slug }),
+    getSiteSettings(),
+    getRequestCountry(),
+  ]);
   if (!post) return {};
-  return {
-    title: post.seoTitle ?? post.title,
-    description: post.seoDescription ?? post.excerpt ?? undefined,
-  };
+  return resolveMetadata({
+    seo: post.seo as SanitySeo | undefined,
+    globalSeo,
+    path: `/resources/blog/${slug}`,
+    country,
+    fallbackTitle: post.title,
+    fallbackDescription: post.excerpt ?? "",
+  });
 }
 
 export async function generateStaticParams() {
@@ -63,15 +75,13 @@ function formatDate(iso: string) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = await client.fetch(postBySlugQuery, { slug }) as {
+  const post = await sanityFetch(postBySlugQuery, { slug }) as {
     title: string;
     category?: string;
     publishedAt?: string;
     excerpt?: string;
     coverImage?: CoverImage;
     body?: unknown[];
-    seoTitle?: string;
-    seoDescription?: string;
   } | null;
   if (!post) notFound();
 

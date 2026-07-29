@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { siteConfig } from "@/config/site";
+import { getCountryMeta } from "@/config/countries";
+import { getSiteSettings } from "@/lib/site-settings";
+import { getRequestCountry } from "@/lib/request-country";
+import { SyncHtmlLang } from "@/components/layout/sync-html-lang";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -10,37 +16,62 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} — Asset, Inspection & Compliance Management`,
-    template: `%s · ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  openGraph: {
-    type: "website",
-    siteName: siteConfig.name,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    locale: "en_AU",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-  },
-  robots: { index: true, follow: true },
-};
+const OG_LOCALES = { au: "en_AU", co: "es_CO" } as const;
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const [globalSeo, country] = await Promise.all([getSiteSettings(), getRequestCountry()]);
+  const siteName = globalSeo?.websiteName || siteConfig.name;
+  const defaultTitle =
+    globalSeo?.defaultTitle || `${siteConfig.name} — Asset, Inspection & Compliance Management`;
+  const description = globalSeo?.defaultDescription || siteConfig.description;
+  const url = country === "co" ? `${siteConfig.url}/co` : siteConfig.url;
+
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: {
+      default: defaultTitle,
+      template: `%s · ${siteName}`,
+    },
+    description,
+    applicationName: siteName,
+    alternates: {
+      canonical: url,
+      languages: {
+        "en-AU": siteConfig.url,
+        "es-CO": `${siteConfig.url}/co`,
+        "x-default": siteConfig.url,
+      },
+    },
+    openGraph: {
+      type: "website",
+      siteName,
+      title: defaultTitle,
+      description,
+      url,
+      locale: OG_LOCALES[country],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: defaultTitle,
+      description,
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const country = await getRequestCountry();
+  const { locale } = getCountryMeta(country);
+  const { isEnabled: isDraftMode } = await draftMode();
+
   return (
-    <html lang="en-AU" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang={locale} className={`${jakarta.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-clip bg-background text-foreground">
         {children}
+        <SyncHtmlLang />
+        {isDraftMode && <VisualEditing />}
       </body>
       {process.env.NEXT_PUBLIC_GA_ID && (
         <>

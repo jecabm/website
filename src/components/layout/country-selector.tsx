@@ -67,7 +67,7 @@ export function CountrySelector({ className }: { className?: string }) {
         <ul
           role="listbox"
           aria-label={content.dictionary.selector.label}
-          className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-lg border border-ink-200 bg-white p-1 shadow-popover"
+          className="absolute right-0 z-60 mt-2 w-56 overflow-hidden rounded-lg border border-ink-200 bg-white p-1 shadow-popover"
         >
           {countries.map((country) => {
             const selected = country.code === code;

@@ -110,18 +110,10 @@ export const product = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'seoTitle',
-      title: 'SEO Title',
-      type: 'string',
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
       group: 'seo',
-    }),
-    defineField({
-      name: 'seoDescription',
-      title: 'SEO Description',
-      type: 'text',
-      rows: 2,
-      group: 'seo',
-      validation: (rule) => rule.max(160),
     }),
   ],
   preview: {

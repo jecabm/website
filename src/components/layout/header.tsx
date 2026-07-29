@@ -17,9 +17,39 @@ import { cn, isPathActive, isSectionActive } from "@/lib/utils";
 
 type NavDict = Dictionary["nav"];
 
+/** Keys of NavDict whose values are required plain strings (as opposed to nested objects). */
+type NavDictStringKey =
+  | "home"
+  | "about"
+  | "pricing"
+  | "contact"
+  | "features"
+  | "resources"
+  | "assetManagement"
+  | "inspectionManagement"
+  | "multiLocations"
+  | "reports"
+  | "mobileApp"
+  | "blog"
+  | "learning"
+  | "manageAssets"
+  | "stayCompliant"
+  | "fieldReady"
+  | "learn";
+
+/** Keys of NavDict whose values are optional plain strings. */
+type NavDictOptionalStringKey =
+  | "assetManagementDesc"
+  | "multiLocationsDesc"
+  | "inspectionManagementDesc"
+  | "reportsDesc"
+  | "mobileAppDesc"
+  | "blogDesc"
+  | "learningDesc";
+
 /** Map a nav item key (kebab-case from site.ts) to the Dictionary.nav property. */
 function t(nav: NavDict, key: string): string {
-  const map: Record<string, keyof NavDict> = {
+  const map: Record<string, NavDictStringKey> = {
     home: "home",
     about: "about",
     pricing: "pricing",
@@ -36,6 +66,31 @@ function t(nav: NavDict, key: string): string {
   };
   const dictKey = map[key];
   return dictKey ? nav[dictKey] : key;
+}
+
+/** Map a nav item key to its Dictionary.nav description property. */
+function td(nav: NavDict, key: string): string | undefined {
+  const map: Record<string, NavDictOptionalStringKey> = {
+    "asset-management": "assetManagementDesc",
+    "multi-locations": "multiLocationsDesc",
+    "inspection-management": "inspectionManagementDesc",
+    reports: "reportsDesc",
+    "mobile-app": "mobileAppDesc",
+    blog: "blogDesc",
+    learning: "learningDesc",
+  };
+  const dictKey = map[key];
+  return dictKey ? nav[dictKey] : undefined;
+}
+
+/** Map a nav group key to its Dictionary.nav featured panel. */
+function tf(nav: NavDict, groupKey: string): NavDict["featuresFeatured"] | undefined {
+  const map: Record<string, "featuresFeatured" | "resourcesFeatured"> = {
+    features: "featuresFeatured",
+    resources: "resourcesFeatured",
+  };
+  const dictKey = map[groupKey];
+  return dictKey ? nav[dictKey] : undefined;
 }
 
 function MegaMenuPanel({
@@ -76,12 +131,13 @@ function MegaMenuPanel({
               <div key={col.headingKey ?? ci}>
                 {col.headingKey && (
                   <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-ink-400">
-                    {nav[col.headingKey as keyof NavDict] ?? col.headingKey}
+                    {nav[col.headingKey as NavDictStringKey] ?? col.headingKey}
                   </p>
                 )}
                 <ul className="space-y-1">
                   {col.items.map((item) => {
                     const active = isPathActive(pathname, item.href);
+                    const description = td(nav, item.key) ?? item.description;
                     return (
                       <li key={item.key}>
                         <Link
@@ -101,9 +157,9 @@ function MegaMenuPanel({
                           >
                             {t(nav, item.key)}
                           </span>
-                          {item.description && (
+                          {description && (
                             <span className="mt-0.5 text-xs leading-relaxed text-ink-500">
-                              {item.description}
+                              {description}
                             </span>
                           )}
                         </Link>
@@ -116,27 +172,30 @@ function MegaMenuPanel({
           </div>
 
           {/* Featured panel */}
-          {group.featured && (
-            <div className="rounded-xl border border-ink-200 bg-ink-50 p-6">
-              <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
-                {group.featured.eyebrow}
-              </p>
-              <h3 className="mt-2 text-base font-bold leading-snug text-ink-900">
-                {group.featured.heading}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-500">
-                {group.featured.description}
-              </p>
-              <Link
-                href={group.featured.href}
-                onClick={onClose}
-                className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
-              >
-                {group.featured.cta}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          )}
+          {group.featured && (() => {
+            const featured = tf(nav, group.key) ?? group.featured;
+            return (
+              <div className="rounded-xl border border-ink-200 bg-ink-50 p-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
+                  {featured.eyebrow}
+                </p>
+                <h3 className="mt-2 text-base font-bold leading-snug text-ink-900">
+                  {featured.heading}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                  {featured.description}
+                </p>
+                <Link
+                  href={group.featured.href}
+                  onClick={onClose}
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
+                >
+                  {featured.cta}
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>
