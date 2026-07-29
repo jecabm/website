@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
     }
+
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      // @ts-expect-error: null
       apiVersion: "2026-05-27.dahlia",
     });
 
