@@ -30,7 +30,6 @@ export const productBySlugQuery = defineQuery(`
     stripePriceId,
     inStock,
     featured,
-    seoTitle,
-    seoDescription
+    seo
   }
 `)

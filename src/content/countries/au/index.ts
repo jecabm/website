@@ -46,6 +46,13 @@ export const auContent: CountryContent = {
         "Import existing registers",
         "Cancel anytime",
       ],
+      mercuryEyebrow: "Industrial Asset Management Platform",
+      mercuryTitleLine1: "Command your assets.",
+      mercuryTitleHighlight: "Always",
+      mercuryTitleLine2: "in control.",
+      mercurySubtitle:
+        "Real-time compliance, inspection tracking, and asset registers built for mining, construction, and heavy industry.",
+      scrollHint: "Scroll",
     },
     pricing: {
       eyebrow: "Pricing",
@@ -274,6 +281,8 @@ export const auContent: CountryContent = {
     eyebrow: "About Us",
     title: "We help businesses stay compliant, organised, and in control. Anytime, anywhere!",
     intro: "",
+    secondaryIntro:
+      "Regatta Registers (R&R) is an Australian SaaS platform built by industry professionals with real-world experience in compliance-driven environments. Our cloud-based system helps businesses manage assets, inspections, maintenance, and reporting in one easy-to-use platform.\n\nDesigned to fit the way your organisation works, RR combines configurable workflows, real-time tracking, automated compliance, and flexible scheduling to simplify operations and eliminate manual processes.",
     mission: {
       title: "Our Focus",
       body: "At Regatta Registers, we build and support solutions that strengthen our core platform and deliver real value to our users. We work closely with clients in compliance-driven industries to improve safety, visibility, and operational performance.\n\nEvery feature we develop is designed to enhance how businesses manage assets, inspections, and compliance. By staying focused on our strengths, we ensure the platform continues to evolve, delivering reliable, scalable solutions that grow with our customers.",

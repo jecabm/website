@@ -57,6 +57,17 @@ export interface Dictionary {
     stayCompliant: string;
     fieldReady: string;
     learn: string;
+    // Mega menu item descriptions
+    assetManagementDesc?: string;
+    multiLocationsDesc?: string;
+    inspectionManagementDesc?: string;
+    reportsDesc?: string;
+    mobileAppDesc?: string;
+    blogDesc?: string;
+    learningDesc?: string;
+    // Mega menu "featured" panels
+    featuresFeatured?: { eyebrow: string; heading: string; description: string; cta: string };
+    resourcesFeatured?: { eyebrow: string; heading: string; description: string; cta: string };
   };
   actions: {
     login: string;
@@ -74,6 +85,13 @@ export interface Dictionary {
     titleTrail: string;
     subtitle: string;
     trustSignals: string[];
+    /** Cinematic scroll-driven homepage hero (mercury-hero.tsx). */
+    mercuryEyebrow: string;
+    mercuryTitleLine1: string;
+    mercuryTitleHighlight: string;
+    mercuryTitleLine2: string;
+    mercurySubtitle: string;
+    scrollHint: string;
   };
   pricing: {
     eyebrow: string;
@@ -163,6 +181,8 @@ export interface AboutContent {
   eyebrow: string;
   title: string;
   intro: string;
+  /** Extra paragraphs shown below the hero image, separated by "\n\n". */
+  secondaryIntro: string;
   mission: { title: string; body: string };
   stats: StatItem[];
   values: { title: string; items: FeatureItem[] };

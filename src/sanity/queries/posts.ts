@@ -41,7 +41,6 @@ export const postBySlugQuery = defineQuery(`
       ...,
       _type == "image" => { ..., asset-> }
     },
-    seoTitle,
-    seoDescription
+    seo
   }
 `)

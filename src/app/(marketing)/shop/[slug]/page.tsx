@@ -3,9 +3,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/preview";
 import { urlFor } from "@/sanity/lib/image";
 import { productBySlugQuery, productsQuery } from "@/sanity/queries";
 import { Section } from "@/components/ui/section";
+import { resolveMetadata, type SanitySeo } from "@/lib/seo";
+import { getSiteSettings } from "@/lib/site-settings";
+import { getRequestCountry } from "@/lib/request-country";
 import { AddToCartButton } from "@/components/marketing/shop/add-to-cart-button";
 import { ShieldCheck, Truck, RefreshCw } from "lucide-react";
 
@@ -21,8 +25,7 @@ type Product = {
   stripePriceId?: string;
   inStock?: boolean;
   category?: string;
-  seoTitle?: string;
-  seoDescription?: string;
+  seo?: SanitySeo;
 };
 
 export async function generateStaticParams() {
@@ -32,12 +35,20 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const product = (await client.fetch(productBySlugQuery, { slug })) as Product | null;
+  const [product, globalSeo, country] = await Promise.all([
+    sanityFetch(productBySlugQuery, { slug }) as Promise<Product | null>,
+    getSiteSettings(),
+    getRequestCountry(),
+  ]);
   if (!product) return {};
-  return {
-    title: product.seoTitle ?? product.name,
-    description: product.seoDescription ?? product.shortDescription,
-  };
+  return resolveMetadata({
+    seo: product.seo,
+    globalSeo,
+    path: `/shop/${slug}`,
+    country,
+    fallbackTitle: product.name,
+    fallbackDescription: product.shortDescription ?? "",
+  });
 }
 
 function formatPrice(dollars: number) {
@@ -46,7 +57,7 @@ function formatPrice(dollars: number) {
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = (await client.fetch(productBySlugQuery, { slug })) as Product | null;
+  const product = (await sanityFetch(productBySlugQuery, { slug })) as Product | null;
   if (!product) notFound();
 
   const images = product.images ?? [];

@@ -24,6 +24,27 @@ export const coContent: CountryContent = {
       stayCompliant: "Mantener cumplimiento",
       fieldReady: "Listo para Terreno",
       learn: "Aprender",
+      assetManagementDesc: "Registro centralizado para cada equipo que posee u opera.",
+      multiLocationsDesc: "Gestione el cumplimiento en múltiples sitios desde un solo panel.",
+      inspectionManagementDesc: "Listas de verificación digitales según el tipo de equipo, desde el prearranque hasta la firma.",
+      reportsDesc: "Paneles de cumplimiento en tiempo real y exportaciones listas para auditoría.",
+      mobileAppDesc: "Complete inspecciones desde el terreno, con o sin conexión.",
+      blogDesc: "Guías de cumplimiento, noticias del sector y artículos prácticos.",
+      learningDesc: "Guías paso a paso y videotutoriales de la plataforma.",
+      featuresFeatured: {
+        eyebrow: "Véalo en acción",
+        heading: "Todo lo que necesita para operar en cumplimiento",
+        description:
+          "Desde registros de activos hasta chequeos diarios de prearranque: Regatta Registers conecta todo su flujo de cumplimiento en un solo lugar.",
+        cta: "Prueba gratis",
+      },
+      resourcesFeatured: {
+        eyebrow: "Nuevo",
+        heading: "Centro de aprendizaje",
+        description:
+          "Videotutoriales y preguntas frecuentes para que su equipo aproveche al máximo Regatta Registers.",
+        cta: "Explorar guías",
+      },
     },
     actions: {
       login: "Iniciar sesión",
@@ -46,6 +67,13 @@ export const coContent: CountryContent = {
         "Importa tus registros actuales",
         "Cancela cuando quieras",
       ],
+      mercuryEyebrow: "Plataforma de Gestión de Activos Industriales",
+      mercuryTitleLine1: "Controla tus activos.",
+      mercuryTitleHighlight: "Siempre",
+      mercuryTitleLine2: "bajo control.",
+      mercurySubtitle:
+        "Cumplimiento en tiempo real, seguimiento de inspecciones y registros de activos diseñados para minería, construcción e industria pesada.",
+      scrollHint: "Desplázate",
     },
     pricing: {
       eyebrow: "Precios",
@@ -280,16 +308,13 @@ export const coContent: CountryContent = {
     title: "Hecho para la realidad del cumplimiento industrial",
     intro:
       "Regatta Registers ayuda a las operaciones con muchos activos a reemplazar el papel y las hojas de cálculo con un único sistema, listo para auditorías, de activos, inspecciones y cumplimiento.",
+    secondaryIntro:
+      "Regatta Registers (R&R) is an Australian SaaS platform built by industry professionals with real-world experience in compliance-driven environments. Our cloud-based system helps businesses manage assets, inspections, maintenance, and reporting in one easy-to-use platform.\n\nDesigned to fit the way your organisation works, RR combines configurable workflows, real-time tracking, automated compliance, and flexible scheduling to simplify operations and eliminate manual processes.",
     mission: {
       title: "Nuestra misión",
       body: "Hacer que el cumplimiento sea sencillo para las industrias que mueven el mundo, para que los equipos dediquen menos tiempo a tareas administrativas y más a un trabajo seguro y productivo.",
     },
-    stats: [
-      { value: "10k+", label: "Activos gestionados" },
-      { value: "98%", label: "Inspecciones a tiempo" },
-      { value: "4", label: "Industrias atendidas" },
-      { value: "24/7", label: "Acceso seguro" },
-    ],
+    stats: [],
     values: {
       title: "Lo que defendemos",
       items: [

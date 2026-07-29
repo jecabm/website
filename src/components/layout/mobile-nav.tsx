@@ -15,8 +15,27 @@ import type { Dictionary } from "@/content/countries/types";
 
 type NavDict = Dictionary["nav"];
 
+type NavDictStringKey =
+  | "home"
+  | "about"
+  | "pricing"
+  | "contact"
+  | "features"
+  | "resources"
+  | "assetManagement"
+  | "inspectionManagement"
+  | "multiLocations"
+  | "reports"
+  | "mobileApp"
+  | "blog"
+  | "learning"
+  | "manageAssets"
+  | "stayCompliant"
+  | "fieldReady"
+  | "learn";
+
 function t(nav: NavDict, key: string): string {
-  const map: Record<string, keyof NavDict> = {
+  const map: Record<string, NavDictStringKey> = {
     home: "home",
     about: "about",
     pricing: "pricing",
