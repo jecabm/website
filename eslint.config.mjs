@@ -1,18 +1,128 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+const prettierOptions = require('./.prettierrc.js');
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
+    'node_modules',
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    '.DS_Store',
+    'public/**',
   ]),
+
+  pluginJs.configs.recommended,
+
+  {
+    files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: tsParser,
+      ecmaVersion: 2021,
+      sourceType: 'module',
+    },
+    plugins: {
+      prettier: eslintPluginPrettier,
+      '@typescript-eslint': tsPlugin,
+      'react-hooks': reactHooksPlugin,
+      'redux-saga': reduxSagaPlugin,
+      'jsx-a11y': jsxA11y,
+      react: reactPlugin,
+      import: importPlugin,
+      'simple-import-sort': simpleImportSort,
+      'unused-imports': unusedImports,
+    },
+    rules: {
+      'prettier/prettier': [2, { ...prettierOptions, endOfLine: 'auto' }],
+      semi: [2, 'always'],
+      'arrow-parens': 0,
+      'arrow-body-style': [2, 'as-needed'],
+      'prefer-template': 2,
+      'max-len': 0,
+      'newline-per-chained-call': 0,
+      'class-methods-use-this': 0,
+      'object-shorthand': [0, 'never'],
+      'jsx-a11y/aria-props': 2,
+      'jsx-a11y/heading-has-content': 0,
+      'jsx-a11y/label-has-for': 0,
+      'jsx-a11y/mouse-events-have-key-events': 2,
+      'jsx-a11y/role-has-required-aria-props': 2,
+      'jsx-a11y/role-supports-aria-props': 2,
+      'jsx-a11y/label-has-associated-control': [2, { controlComponents: ['Input'] }],
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-no-bind': [0, { ignoreDOMComponents: true }],
+      'react/jsx-uses-vars': 2,
+      'react-hooks/exhaustive-deps': 2,
+      'react/jsx-props-no-spreading': 0,
+      'react/prop-types': 0,
+      'react/destructuring-assignment': 0,
+      'react-hooks/rules-of-hooks': 2,
+      'react/jsx-closing-tag-location': 0,
+      'react/forbid-prop-types': 0,
+      'react/jsx-first-prop-new-line': [2, 'multiline'],
+      'react/jsx-filename-extension': 0,
+      'react/jsx-no-target-blank': 0,
+      'react/require-default-props': 0,
+      'react/self-closing-comp': 0,
+      'react/sort-comp': 0,
+      'redux-saga/no-yield-in-race': 2,
+      'redux-saga/yield-effects': 2,
+      'require-yield': 0,
+      'import/no-unresolved': [2, { caseSensitive: false }],
+      'import/no-extraneous-dependencies': 0,
+      'import/prefer-default-export': 0,
+      'import/no-cycle': 0,
+      'import/order': 0,
+      'import/newline-after-import': 0,
+      'import/no-dynamic-require': 0,
+      'import/no-named-as-default': 0,
+      'import/no-webpack-loader-syntax': 0,
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            ['^react', '^expo', '^@?\\w'],
+            ['^@/'],
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+            ['^.+\\.s?css$'],
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'error',
+      'unused-imports/no-unused-imports': 'error',
+      'no-undef': 0,
+      'no-confusing-arrow': 0,
+      'no-console': 0,
+      'no-use-before-define': 0,
+      'no-case-declarations': 1,
+      'no-param-reassign': 0,
+      'no-underscore-dangle': [0, { allow: ['_place'] }],
+      'no-alert': 0,
+      'no-unused-vars': 0,
+      '@typescript-eslint/no-explicit-any': 0,
+      '@typescript-eslint/ban-ts-comment': [2, { 'ts-ignore': 'allow-with-description' }],
+      '@typescript-eslint/no-empty-function': 0,
+      '@typescript-eslint/no-var-requires': 0,
+      '@typescript-eslint/no-empty-interface': 0,
+      '@typescript-eslint/explicit-module-boundary-types': 0,
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+      react: {
+        version: 'detect',
+      },
+    },
+  },
 ]);
 
 export default eslintConfig;

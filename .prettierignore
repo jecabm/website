@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build files
+.next/
+.idea/
+
+# Logs
+logs/
+
+# Lockfiles
+package.json
+package-lock.json
+
+# Ignore non-text files in public/
+public/**/*.png
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.svg
+public/**/*.gif
+
+# Environment variables
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo

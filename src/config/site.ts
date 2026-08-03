@@ -160,7 +160,7 @@ export const mainNav: NavEntry[] = [
 
 /** Conversion / auth actions shown as buttons in the header. */
 export const ctaNav = {
-  login: { key: "login", label: "Login", href: "/login" },
+  login: { key: "login", label: "Login", href: "https://app.regattaregisters.com/auth/login" },
   freeTrial: { key: "free-trial", label: "Free Trial", href: "/free-trial" },
 } as const;
 
