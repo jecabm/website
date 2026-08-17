@@ -40,7 +40,7 @@ export function MercuryHero() {
       const p = clamp(window.scrollY / maxScroll, 0, 1);
 
       // Landscape: gentle zoom out
-      const lScale = mapRange(p, 0, 0.80, 1.05, 1.0);
+      const lScale = mapRange(p, 0, 0.80, 1.18, 0.94);
       landscape.style.transform = `scale(${lScale})`;
 
       // Text: stays permanently visible, no fade or drift
@@ -79,8 +79,8 @@ export function MercuryHero() {
   }, []);
 
   return (
-    /* â”€â”€ Scroll zone: 340vh so sticky hero animates through full range â”€â”€ */
-    <div ref={zoneRef} style={{ height: "340vh", position: "relative" }}>
+    /* â”€â”€ Scroll zone: 180vh so sticky hero animates through full range â”€â”€ */
+    <div ref={zoneRef} style={{ height: "180vh", position: "relative" }}>
 
       {/* â”€â”€ Sticky hero â”€â”€ */}
       <header style={{
