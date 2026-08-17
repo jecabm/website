@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { X, ShoppingCart, Plus, Minus, Trash2, Loader2 } from "lucide-react";
+import { X, ShoppingCart, Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

@@ -13,6 +13,7 @@ export function MercuryHero() {
   const contentRef   = useRef<HTMLDivElement>(null);
   const dashRef      = useRef<HTMLDivElement>(null);
   const hintRef      = useRef<HTMLDivElement>(null);
+  const videoRef     = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const zone      = zoneRef.current!;
     const landscape = landscapeRef.current!;
@@ -20,7 +21,8 @@ export function MercuryHero() {
     const content   = contentRef.current!;
     const dash      = dashRef.current!;
     const hint      = hintRef.current!;
-    if (!zone || !landscape || !overlay || !content || !dash || !hint) return;
+    const video     = videoRef.current!;
+    if (!zone || !landscape || !overlay || !content || !dash || !hint || !video) return;
 
     const clamp    = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
     const lerp     = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -41,16 +43,18 @@ export function MercuryHero() {
       const lScale = mapRange(p, 0, 0.80, 1.05, 1.0);
       landscape.style.transform = `scale(${lScale})`;
 
-      // Text: fades out early, drifts up
-      const textT = easeOut(clamp((p - 0.08) / (0.35 - 0.08), 0, 1));
-      content.style.opacity   = String(1 - textT);
-      content.style.transform = `translateY(${-32 * textT}px)`;
+      // Text: stays permanently visible, no fade or drift
+      content.style.opacity   = "1";
+      content.style.transform = "translateY(0px)";
 
       // Scroll hint: gone by p=0.10
       hint.style.opacity = String(mapRange(p, 0, 0.10, 1, 0));
 
-      // Dark overlay: deepens as dashboard rises
-      overlay.style.opacity = String(mapRange(p, 0.18, 0.68, 0, 0.92));
+      // Dark overlay: starts at 100% darkness, deepens as dashboard rises
+      overlay.style.opacity = String(mapRange(p, 0.18, 0.68, 1.0, 0.92));
+
+      // Video: always fully opaque (darkness handled by overlay above)
+      video.style.opacity = "1";
 
       // Dashboard: starts large + transparent, scales DOWN to 1Ã— at full opacity
       const dashT    = easeOut(clamp((p - 0.22) / (0.68 - 0.22), 0, 1));
@@ -60,8 +64,9 @@ export function MercuryHero() {
       // Phase 3: gentle settle
       if (p > 0.82) dScale = mapRange(p, 0.82, 1.0, 1.0, 0.97);
 
+      // Dashboard reveal temporarily disabled — kept hidden regardless of scroll
       dash.style.transform = `scale(${dScale})`;
-      dash.style.opacity   = String(dOpacity);
+      dash.style.opacity   = "0";
     }
 
     function onScroll() {
@@ -99,12 +104,13 @@ export function MercuryHero() {
             background: "radial-gradient(ellipse 100% 70% at 50% 0%, rgba(30,30,30,0.65) 0%, rgba(14,14,14,0.80) 100%)",
           }} />
           <video
+            ref={videoRef}
             autoPlay loop muted playsInline preload="auto"
             poster="/laptop-hero.png"
             aria-hidden
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", willChange: "opacity" }}
           >
-            <source src="/hero-bg-video.mp4" type="video/mp4" />
+            <source src="/Regatta_Hero_video.mp4" type="video/mp4" />
           </video>
           {/* Bottom fade â€” blends into dashboard */}
           <div style={{
@@ -117,7 +123,7 @@ export function MercuryHero() {
         {/* â”€â”€ Dark overlay â”€â”€ */}
         <div ref={overlayRef} style={{
           position: "absolute", inset: 0,
-          background: "rgba(10,10,10,0.72)",
+          background: "rgba(0,0,0,0.60)",
           opacity: 0,
           pointerEvents: "none",
           willChange: "opacity",
@@ -155,6 +161,7 @@ export function MercuryHero() {
             letterSpacing: "-0.03em",
             color: "#ffffff",
             marginBottom: 28,
+            textShadow: "0 2px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.65)",
           }}>
             {hero.mercuryTitleLine1}<br />
             <span style={{ color: "var(--color-brand-500, #f28500)" }}>{hero.mercuryTitleHighlight}</span> {hero.mercuryTitleLine2}
@@ -168,6 +175,7 @@ export function MercuryHero() {
             maxWidth: 520,
             marginBottom: 40,
             letterSpacing: "-0.01em",
+            textShadow: "0 1px 12px rgba(0,0,0,0.5)",
           }}>
             {hero.mercurySubtitle}
           </p>
