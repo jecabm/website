@@ -1,64 +1,65 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Check, Minus, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Container } from "@/components/ui/container";
-import { useCountry } from "@/hooks/use-country";
-import { formatCurrency } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import React, { useState } from 'react';
+import { Check, ChevronDown, Minus } from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Container } from '@/components/ui/container';
+import { useCountry } from '@/hooks/use-country';
+import { formatCurrency } from '@/lib/format';
+import { cn } from '@/lib/utils';
 
 // Comparison table rows — feature names are technical product terms, kept in English across locales.
 // Category labels come from content.dictionary.pricing.categories.
 const comparisonRows = [
   {
-    categoryKey: "core" as const,
+    categoryKey: 'core' as const,
     rows: [
-      { feature: "Asset register", standard: true, pro: true, enterprise: true },
-      { feature: "Users", standard: "1", pro: "6", enterprise: "Unlimited" },
-      { feature: "Inspections & checklists", standard: true, pro: true, enterprise: true },
-      { feature: "CSV / bulk import", standard: true, pro: true, enterprise: true },
-      { feature: "QR code scanning", standard: true, pro: true, enterprise: true },
-      { feature: "Offline mode", standard: false, pro: true, enterprise: true },
+      { feature: 'Asset register', standard: true, pro: true, enterprise: true },
+      { feature: 'Users', standard: '1', pro: '6', enterprise: 'Unlimited' },
+      { feature: 'Inspections & checklists', standard: true, pro: true, enterprise: true },
+      { feature: 'CSV / bulk import', standard: true, pro: true, enterprise: true },
+      { feature: 'QR code scanning', standard: true, pro: true, enterprise: true },
+      { feature: 'Offline mode', standard: false, pro: true, enterprise: true },
     ],
   },
   {
-    categoryKey: "compliance" as const,
+    categoryKey: 'compliance' as const,
     rows: [
-      { feature: "Compliance calendar", standard: true, pro: true, enterprise: true },
-      { feature: "Automated alerts", standard: false, pro: true, enterprise: true },
-      { feature: "Audit trail & history", standard: true, pro: true, enterprise: true },
-      { feature: "Custom compliance standards", standard: false, pro: true, enterprise: true },
-      { feature: "Regulatory report export", standard: false, pro: true, enterprise: true },
+      { feature: 'Compliance calendar', standard: true, pro: true, enterprise: true },
+      { feature: 'Automated alerts', standard: false, pro: true, enterprise: true },
+      { feature: 'Audit trail & history', standard: true, pro: true, enterprise: true },
+      { feature: 'Custom compliance standards', standard: false, pro: true, enterprise: true },
+      { feature: 'Regulatory report export', standard: false, pro: true, enterprise: true },
     ],
   },
   {
-    categoryKey: "teamLocations" as const,
+    categoryKey: 'teamLocations' as const,
     rows: [
-      { feature: "Multiple locations / sites", standard: false, pro: true, enterprise: true },
-      { feature: "Role-based access control", standard: false, pro: true, enterprise: true },
-      { feature: "Equipment booking", standard: false, pro: true, enterprise: true },
-      { feature: "Team management", standard: false, pro: true, enterprise: true },
+      { feature: 'Multiple locations / sites', standard: false, pro: true, enterprise: true },
+      { feature: 'Role-based access control', standard: false, pro: true, enterprise: true },
+      { feature: 'Equipment booking', standard: false, pro: true, enterprise: true },
+      { feature: 'Team management', standard: false, pro: true, enterprise: true },
     ],
   },
   {
-    categoryKey: "enterprise" as const,
+    categoryKey: 'enterprise' as const,
     rows: [
-      { feature: "Custom forms & fields", standard: false, pro: "Limited", enterprise: true },
-      { feature: "SSO / SAML", standard: false, pro: false, enterprise: true },
-      { feature: "API access", standard: false, pro: false, enterprise: true },
-      { feature: "Dedicated success manager", standard: false, pro: false, enterprise: true },
-      { feature: "Custom SLA", standard: false, pro: false, enterprise: true },
+      { feature: 'Custom forms & fields', standard: false, pro: 'Limited', enterprise: true },
+      { feature: 'SSO / SAML', standard: false, pro: false, enterprise: true },
+      { feature: 'API access', standard: false, pro: false, enterprise: true },
+      { feature: 'Dedicated success manager', standard: false, pro: false, enterprise: true },
+      { feature: 'Custom SLA', standard: false, pro: false, enterprise: true },
     ],
   },
   {
-    categoryKey: "support" as const,
+    categoryKey: 'support' as const,
     rows: [
-      { feature: "Email support", standard: true, pro: true, enterprise: true },
-      { feature: "Priority support", standard: false, pro: true, enterprise: true },
-      { feature: "Onboarding assistance", standard: false, pro: true, enterprise: true },
+      { feature: 'Email support', standard: true, pro: true, enterprise: true },
+      { feature: 'Priority support', standard: false, pro: true, enterprise: true },
+      { feature: 'Onboarding assistance', standard: false, pro: true, enterprise: true },
     ],
   },
 ];
@@ -74,22 +75,24 @@ function Cell({
   highlight: boolean;
   roundedBottom?: boolean;
 }) {
-  const highlightClasses = highlight && cn("bg-brand-50", roundedBottom && "rounded-b-xl");
+  const highlightClasses = highlight && cn('bg-brand-50', roundedBottom && 'rounded-b-xl');
 
   if (value === true)
     return (
-      <td className={cn("px-4 py-3.5 text-center", highlightClasses)}>
+      <td className={cn('px-4 py-3.5 text-center', highlightClasses)}>
         <Check className="mx-auto h-4 w-4 text-success" />
       </td>
     );
   if (value === false)
     return (
-      <td className={cn("px-4 py-3.5 text-center text-ink-300", highlightClasses)}>
+      <td className={cn('px-4 py-3.5 text-center text-ink-300', highlightClasses)}>
         <Minus className="mx-auto h-4 w-4" />
       </td>
     );
   return (
-    <td className={cn("px-4 py-3.5 text-center text-sm font-medium text-ink-700", highlightClasses)}>
+    <td
+      className={cn('px-4 py-3.5 text-center text-sm font-medium text-ink-700', highlightClasses)}
+    >
       {value}
     </td>
   );
@@ -108,15 +111,10 @@ function FaqItem({ q, a }: FaqItemProps) {
       >
         <span className="text-base font-medium text-ink-900">{q}</span>
         <ChevronDown
-          className={cn(
-            "h-4 w-4 shrink-0 text-ink-400 transition-transform",
-            open && "rotate-180"
-          )}
+          className={cn('h-4 w-4 shrink-0 text-ink-400 transition-transform', open && 'rotate-180')}
         />
       </button>
-      {open && (
-        <p className="pb-5 text-sm leading-relaxed text-ink-600">{a}</p>
-      )}
+      {open && <p className="pb-5 text-sm leading-relaxed text-ink-600">{a}</p>}
     </div>
   );
 }
@@ -126,7 +124,7 @@ export function PricingTiers() {
   const { content } = useCountry();
   const { pricing, actions } = content.dictionary;
   const tiers = content.pricing.tiers;
-  const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
 
   return (
     <>
@@ -140,33 +138,31 @@ export function PricingTiers() {
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
               {pricing.title}
             </h1>
-            <p className="mt-4 text-lg leading-relaxed text-ink-500">
-              {pricing.subtitle}
-            </p>
+            <p className="mt-4 text-lg leading-relaxed text-ink-500">{pricing.subtitle}</p>
           </div>
 
           {/* Billing toggle */}
           <div className="mt-8 flex items-center justify-center gap-1 rounded-full bg-ink-100 p-1 w-fit mx-auto">
             <button
               type="button"
-              onClick={() => setBilling("monthly")}
+              onClick={() => setBilling('monthly')}
               className={cn(
-                "rounded-full px-5 py-2 text-sm font-medium transition-colors",
-                billing === "monthly"
-                  ? "bg-white text-ink-900 shadow-sm"
-                  : "text-ink-500 hover:text-ink-700"
+                'rounded-full px-5 py-2 text-sm font-medium transition-colors',
+                billing === 'monthly'
+                  ? 'bg-white text-ink-900 shadow-sm'
+                  : 'text-ink-500 hover:text-ink-700',
               )}
             >
               Monthly
             </button>
             <button
               type="button"
-              onClick={() => setBilling("annual")}
+              onClick={() => setBilling('annual')}
               className={cn(
-                "flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors",
-                billing === "annual"
-                  ? "bg-white text-ink-900 shadow-sm"
-                  : "text-ink-500 hover:text-ink-700"
+                'flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors',
+                billing === 'annual'
+                  ? 'bg-white text-ink-900 shadow-sm'
+                  : 'text-ink-500 hover:text-ink-700',
               )}
             >
               Annual
@@ -178,58 +174,57 @@ export function PricingTiers() {
 
           <div className="mx-auto mt-12 grid max-w-5xl items-stretch gap-6 lg:grid-cols-3">
             {tiers.map((tier) => {
-              const amount = billing === "annual" ? tier.annualAmount : tier.monthlyAmount;
+              const amount = billing === 'annual' ? tier.annualAmount : tier.monthlyAmount;
               return (
-              <Card
-                key={tier.id}
-                className={cn(
-                  "flex flex-col p-6",
-                  tier.popular && "ring-2 ring-brand-500"
-                )}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-lg font-semibold text-ink-900">{tier.name}</h2>
-                  {tier.popular && <Badge variant="brand">{pricing.mostPopular}</Badge>}
-                </div>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{tier.description}</p>
+                <Card
+                  key={tier.id}
+                  className={cn('flex flex-col p-6', tier.popular && 'ring-2 ring-brand-500')}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <h2 className="text-lg font-semibold text-ink-900">{tier.name}</h2>
+                    {tier.popular && <Badge variant="brand">{pricing.mostPopular}</Badge>}
+                  </div>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{tier.description}</p>
 
-                <div className="mt-5">
-                  {amount === null ? (
-                    <span className="text-3xl font-bold tracking-tight text-ink-900">
-                      {pricing.custom}
-                    </span>
-                  ) : (
-                    <>
-                      <span className="text-4xl font-bold tracking-tight text-ink-900">
-                        {formatCurrency(amount, content.locale, content.currency)}
+                  <div className="mt-5">
+                    {amount === null ? (
+                      <span className="text-3xl font-bold tracking-tight text-ink-900">
+                        {pricing.custom}
                       </span>
-                      <span className="text-base font-normal text-ink-500">{pricing.perMonth}</span>
-                    </>
-                  )}
-                  {billing === "annual" && amount !== null && (
-                    <p className="mt-1 text-xs text-ink-400">Billed annually</p>
-                  )}
-                </div>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-bold tracking-tight text-ink-900">
+                          {formatCurrency(amount, content.locale, content.currency)}
+                        </span>
+                        <span className="text-base font-normal text-ink-500">
+                          {pricing.perMonth}
+                        </span>
+                      </>
+                    )}
+                    {billing === 'annual' && amount !== null && (
+                      <p className="mt-1 text-xs text-ink-400">Billed annually</p>
+                    )}
+                  </div>
 
-                <ul className="mt-6 space-y-3 text-sm text-ink-700">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="mt-6 space-y-3 text-sm text-ink-700">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
 
-                <div className="mt-auto pt-8">
-                  <Button
-                    href={tier.monthlyAmount === null ? "/contact" : "/free-trial"}
-                    variant={tier.popular ? "primary" : "outline"}
-                    fullWidth
-                  >
-                    {tier.cta}
-                  </Button>
-                </div>
-              </Card>
+                  <div className="mt-auto pt-8">
+                    <Button
+                      href={tier.monthlyAmount === null ? '/contact' : '/free-trial'}
+                      variant={tier.popular ? 'primary' : 'outline'}
+                      fullWidth
+                    >
+                      {tier.cta}
+                    </Button>
+                  </div>
+                </Card>
               );
             })}
           </div>
@@ -259,10 +254,10 @@ export function PricingTiers() {
                     <th
                       key={tier.id}
                       className={cn(
-                        "sticky top-18 px-4 py-4 text-center font-semibold",
+                        'sticky top-18 px-4 py-4 text-center font-semibold',
                         tier.popular
-                          ? "z-20 rounded-t-xl border-t-4 border-brand-500 bg-brand-50 text-brand-700"
-                          : "z-10 bg-white text-ink-900 shadow-[inset_0_-1px_0_0] shadow-ink-200"
+                          ? 'z-20 rounded-t-xl border-t-4 border-brand-500 bg-brand-50 text-brand-700'
+                          : 'z-10 bg-white text-ink-900 shadow-[inset_0_-1px_0_0] shadow-ink-200',
                       )}
                     >
                       <div className="flex flex-col items-center gap-2">
@@ -275,8 +270,8 @@ export function PricingTiers() {
                           )}
                         </span>
                         <Button
-                          href={tier.monthlyAmount === null ? "/contact" : "/free-trial"}
-                          variant={tier.popular ? "primary" : "outline"}
+                          href={tier.monthlyAmount === null ? '/contact' : '/free-trial'}
+                          variant={tier.popular ? 'primary' : 'outline'}
                           size="sm"
                         >
                           {tier.cta}
@@ -299,7 +294,8 @@ export function PricingTiers() {
                     </tr>
                     {group.rows.map((row, rowIndex) => {
                       const isLastRow =
-                        groupIndex === comparisonRows.length - 1 && rowIndex === group.rows.length - 1;
+                        groupIndex === comparisonRows.length - 1 &&
+                        rowIndex === group.rows.length - 1;
                       return (
                         <tr key={row.feature} className="border-t border-ink-100">
                           <td className="px-4 py-3.5 text-ink-700">{row.feature}</td>
@@ -332,7 +328,9 @@ export function PricingTiers() {
             <h3 className="text-xl font-bold text-white">{pricing.stillHaveQuestions}</h3>
             <p className="mt-2 text-ink-300">{pricing.stillHaveQuestionsSubtitle}</p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href="/free-trial" size="lg">{actions.startFreeTrial}</Button>
+              <Button href="/free-trial" size="lg">
+                {actions.startFreeTrial}
+              </Button>
               <Button
                 href="/contact"
                 size="lg"
