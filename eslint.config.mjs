@@ -1,6 +1,13 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import pluginJs from '@eslint/js';
+import tsParser from '@typescript-eslint/parser';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const prettierOptions = require('./.prettierrc.js');
 
 const eslintConfig = defineConfig([
@@ -26,14 +33,10 @@ const eslintConfig = defineConfig([
       ecmaVersion: 2021,
       sourceType: 'module',
     },
+    // react, react-hooks, jsx-a11y, import and @typescript-eslint are already
+    // registered by eslint-config-next; redefining them throws at load time.
     plugins: {
       prettier: eslintPluginPrettier,
-      '@typescript-eslint': tsPlugin,
-      'react-hooks': reactHooksPlugin,
-      'redux-saga': reduxSagaPlugin,
-      'jsx-a11y': jsxA11y,
-      react: reactPlugin,
-      import: importPlugin,
       'simple-import-sort': simpleImportSort,
       'unused-imports': unusedImports,
     },
@@ -70,9 +73,6 @@ const eslintConfig = defineConfig([
       'react/require-default-props': 0,
       'react/self-closing-comp': 0,
       'react/sort-comp': 0,
-      'redux-saga/no-yield-in-race': 2,
-      'redux-saga/yield-effects': 2,
-      'require-yield': 0,
       'import/no-unresolved': [2, { caseSensitive: false }],
       'import/no-extraneous-dependencies': 0,
       'import/prefer-default-export': 0,
