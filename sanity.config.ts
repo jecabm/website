@@ -5,7 +5,7 @@
  */
 
 import {dashboardTool} from '@sanity/dashboard'
-import {EyeOpenIcon} from '@sanity/icons'
+import {BarChartIcon, EyeOpenIcon, HomeIcon} from '@sanity/icons'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
@@ -15,6 +15,7 @@ import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {AnalyticsDashboard} from './src/sanity/plugins/analytics/AnalyticsDashboard'
 import {TopPagesWidget} from './src/sanity/plugins/analytics/TopPagesWidget'
 import {ClarityDashboard} from './src/sanity/plugins/clarity/ClarityDashboard'
+import {HomeDashboard} from './src/sanity/plugins/home/HomeDashboard'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
@@ -34,6 +35,21 @@ export default defineConfig({
   ],
   plugins: [
     dashboardTool({
+      name: 'home',
+      title: 'Home',
+      icon: HomeIcon,
+      widgets: [
+        {
+          name: 'home',
+          component: HomeDashboard,
+          layout: {width: 'full'},
+        },
+      ],
+    }),
+    dashboardTool({
+      name: 'analytics',
+      title: 'Analytics',
+      icon: BarChartIcon,
       widgets: [
         {
           name: 'analytics',
