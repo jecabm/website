@@ -7,7 +7,7 @@ import { useCountry } from "@/hooks/use-country";
 const carouselLogosByCountry = {
   au: [
     { src: "/clients/Australia/Crane-Reliability-logo.png",           alt: "Crane Reliability", className: "h-16" },
-    { src: "/clients/Australia/Technical-Inspection-services-logo.png", alt: "Technical Inspection Services", className: "h-16" },
+    { src: "/clients/Australia/Technical-Inspection-services-logo.png", alt: "Technical Inspection Services", className: "h-12" },
     { src: "/clients/Australia/all-lifting.png",                      alt: "All Lifting", className: "h-10" },
   ],
   co: [
@@ -36,6 +36,19 @@ export function TrustBar() {
       <Container size="wide" className="py-8">
         <div className="flex flex-col items-center gap-5 lg:flex-row lg:justify-between lg:gap-8">
 
+          {/* Used in row */}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="mr-1 text-xs font-medium text-ink-400">{trustBar.usedIn}</span>
+            {trustBar.industries.map((name) => (
+              <span
+                key={name}
+                className="rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-600"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+
           {/* Logo carousel */}
           <div
             className="relative w-full overflow-hidden lg:flex-1"
@@ -57,19 +70,6 @@ export function TrustBar() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Used in row */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="mr-1 text-xs font-medium text-ink-400">{trustBar.usedIn}</span>
-            {trustBar.industries.map((name) => (
-              <span
-                key={name}
-                className="rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-600"
-              >
-                {name}
-              </span>
-            ))}
           </div>
 
         </div>
