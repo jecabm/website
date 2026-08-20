@@ -17,7 +17,7 @@ export function Logo({
   showWordmark?: boolean;
   variant?: "default" | "white";
 }) {
-  const src = variant === "white" ? "/RR-logo-white.png" : "/RR-logo.svg";
+  const src = variant === "white" ? "/RR-logo-white.svg" : "/RR-logo.svg";
 
   return (
     <Link

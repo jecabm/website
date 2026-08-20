@@ -295,8 +295,8 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <CountrySelector />
-          <CartButton />
+          {/* Cart hidden for now (not deleted) — uncomment to restore. */}
+          {/* <CartButton /> */}
           <Button
             href={ctaNav.login.href}
             variant="ghost"
@@ -308,6 +308,7 @@ export function Header() {
           <Button href={ctaNav.freeTrial.href} variant="primary" size="sm">
             {actions.freeTrial}
           </Button>
+          <CountrySelector />
         </div>
 
         {/* Mobile-only: hamburger */}

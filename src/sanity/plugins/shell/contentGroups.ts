@@ -25,6 +25,18 @@ export interface ContentRowDef {
   toolName: string
   /** Schema type(s) whose count/draft-status feed this row's badge */
   types: StatusType[]
+  /**
+   * If set, this row opens the Presentation ("Preview") tool at this frontend
+   * path instead of the plain form-only document editor — used for the
+   * marketing pages so clicking them lands straight in the split-pane preview.
+   */
+  previewPath?: string
+  /**
+   * Colombia variant of `previewPath` (the frontend serves it at a
+   * `/co`-prefixed route — see src/proxy.ts). Only set for the singleton
+   * marketing pages, which have separate AU/CO documents to edit.
+   */
+  previewPathCo?: string
 }
 
 export interface ContentGroupDef {
@@ -36,23 +48,23 @@ export const CONTENT_GROUPS: ContentGroupDef[] = [
   {
     title: 'Marketing Pages',
     rows: [
-      {toolName: 'homePage', types: ['homePage']},
-      {toolName: 'featuresPage', types: ['featuresPage']},
-      {toolName: 'pricingPage', types: ['pricingPage']},
-      {toolName: 'aboutPage', types: ['aboutPage']},
-      {toolName: 'contactPage', types: ['contactPage']},
+      {toolName: 'homePage', types: ['homePage'], previewPath: '/', previewPathCo: '/co'},
+      {toolName: 'featuresPage', types: ['featuresPage'], previewPath: '/features', previewPathCo: '/co/features'},
+      {toolName: 'pricingPage', types: ['pricingPage'], previewPath: '/pricing', previewPathCo: '/co/pricing'},
+      {toolName: 'aboutPage', types: ['aboutPage'], previewPath: '/about', previewPathCo: '/co/about'},
+      {toolName: 'contactPage', types: ['contactPage'], previewPath: '/contact', previewPathCo: '/co/contact'},
     ],
   },
   {
     title: 'Content',
     rows: [
-      {toolName: 'blogResources', types: ['post']},
-      {toolName: 'learningCentre', types: ['learningItem', 'videoTutorial']},
+      {toolName: 'blogResources', types: ['post'], previewPath: '/resources/blog'},
+      {toolName: 'learningCentre', types: ['learningItem', 'videoTutorial'], previewPath: '/resources/learning'},
     ],
   },
   {
     title: 'Commerce',
-    rows: [{toolName: 'shopProducts', types: ['product']}],
+    rows: [{toolName: 'shopProducts', types: ['product'], previewPath: '/shop'}],
   },
   {
     title: 'Social Proof',

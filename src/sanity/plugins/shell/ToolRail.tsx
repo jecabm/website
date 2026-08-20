@@ -4,7 +4,7 @@ import {PanelLeftIcon} from '@sanity/icons'
 import type {CSSProperties} from 'react'
 import {useState} from 'react'
 import {ToolLink, useWorkspace} from 'sanity'
-import {useRouterState} from 'sanity/router'
+import {Link, useRouterState} from 'sanity/router'
 
 import {CONTENT_GROUPS, GROUPED_TOOL_NAMES} from './contentGroups'
 import {combineStatus, useTypeStatus} from './useTypeStatus'
@@ -32,6 +32,10 @@ function rowStyle(isActive: boolean, collapsed: boolean): CSSProperties {
 export function ToolRail() {
   const {tools} = useWorkspace()
   const activeToolName = useRouterState((state) => (typeof state?.tool === 'string' ? state.tool : undefined))
+  const activePreviewPath = useRouterState((state) => {
+    const presentationState = state?.presentation as {preview?: string} | undefined
+    return presentationState?.preview
+  })
   const [collapsed, setCollapsed] = useState(false)
   const typeStatus = useTypeStatus()
 
@@ -144,16 +148,10 @@ export function ToolRail() {
             {group.rows.map((row) => {
               const tool = toolsByName.get(row.toolName)
               if (!tool) return null
-              const isActive = tool.name === activeToolName
               const Icon = tool.icon
               const combined = combineStatus(typeStatus, row.types)
-              return (
-                <ToolLink
-                  key={tool.name}
-                  name={tool.name}
-                  title={collapsed ? tool.title ?? tool.name : undefined}
-                  style={rowStyle(isActive, collapsed)}
-                >
+              const rowLabel = (
+                <>
                   <span style={{fontSize: '20px', display: 'flex', flexShrink: 0}}>{Icon && <Icon />}</span>
                   {!collapsed && (
                     <>
@@ -193,6 +191,55 @@ export function ToolRail() {
                       )}
                     </>
                   )}
+                </>
+              )
+
+              // Marketing pages jump straight into the Presentation ("Preview")
+              // tool at their frontend route instead of the plain form editor.
+              if (row.previewPath) {
+                const isActive = activeToolName === 'presentation' && activePreviewPath === row.previewPath
+                const isActiveCo =
+                  activeToolName === 'presentation' && row.previewPathCo && activePreviewPath === row.previewPathCo
+                return (
+                  <div key={tool.name} style={{display: 'flex', alignItems: 'center', gap: '2px'}}>
+                    <Link
+                      href={`/studio/presentation?preview=${encodeURIComponent(row.previewPath)}`}
+                      title={collapsed ? tool.title ?? tool.name : undefined}
+                      style={{...rowStyle(isActive, collapsed), flex: 1, minWidth: 0}}
+                    >
+                      {rowLabel}
+                    </Link>
+                    {!collapsed && row.previewPathCo && (
+                      <Link
+                        href={`/studio/presentation?preview=${encodeURIComponent(row.previewPathCo)}`}
+                        title="Edit Colombia (Spanish) version"
+                        style={{
+                          flexShrink: 0,
+                          fontSize: '0.65rem',
+                          fontWeight: 700,
+                          padding: '0.3rem 0.4rem',
+                          borderRadius: '6px',
+                          textDecoration: 'none',
+                          color: isActiveCo ? 'var(--card-fg-color, #101112)' : 'var(--muted-fg-color, #9ca3af)',
+                          background: isActiveCo ? 'var(--card-muted-bg-color, #e5e7eb)' : 'transparent',
+                        }}
+                      >
+                        CO
+                      </Link>
+                    )}
+                  </div>
+                )
+              }
+
+              const isActive = tool.name === activeToolName
+              return (
+                <ToolLink
+                  key={tool.name}
+                  name={tool.name}
+                  title={collapsed ? tool.title ?? tool.name : undefined}
+                  style={rowStyle(isActive, collapsed)}
+                >
+                  {rowLabel}
                 </ToolLink>
               )
             })}
