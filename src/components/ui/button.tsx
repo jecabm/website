@@ -1,7 +1,10 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCountry } from "@/hooks/use-country";
 
 type Variant = "primary" | "secondary" | "outline" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
@@ -60,6 +63,7 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
+  const { localize } = useCountry();
   const classes = cn(
     base,
     variants[variant],
@@ -69,8 +73,9 @@ export function Button({
   );
 
   if ("href" in props && props.href !== undefined) {
+    const { href, ...linkProps } = props as ButtonAsLink;
     return (
-      <Link className={classes} {...(props as ButtonAsLink)}>
+      <Link className={classes} href={localize(href)} {...linkProps}>
         {children}
       </Link>
     );

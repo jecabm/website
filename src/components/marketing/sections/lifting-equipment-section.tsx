@@ -19,7 +19,7 @@ import { useCountry } from "@/hooks/use-country";
 const icons = [QrCode, WifiOff, Sliders, ShieldCheck, Boxes, MapPin, CalendarCheck, CheckCircle2, Upload];
 
 export function LiftingEquipmentSection() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { liftingEquipment } = content.home;
 
   return (
@@ -60,14 +60,14 @@ export function LiftingEquipmentSection() {
 
         <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <Link
-            href="/free-trial"
+            href={localize("/free-trial")}
             className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
           >
             {liftingEquipment.ctaPrimary}
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            href="/features#asset-management"
+            href={localize("/features#asset-management")}
             className="inline-flex items-center gap-2 text-sm font-medium text-ink-300 transition-colors hover:text-white"
           >
             {liftingEquipment.ctaSecondary}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCountry } from "@/hooks/use-country";
 import { cn, isPathActive } from "@/lib/utils";
 
 /** Desktop nav link with active-route awareness. */
@@ -15,11 +16,12 @@ export function NavLink({
   className?: string;
 }) {
   const pathname = usePathname();
+  const { localize } = useCountry();
   const isActive = isPathActive(pathname, href);
 
   return (
     <Link
-      href={href}
+      href={localize(href)}
       aria-current={isActive ? "page" : undefined}
       className={cn(
         "relative text-sm font-medium transition-colors",

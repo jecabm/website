@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import { useCountry } from "@/hooks/use-country";
 
 /**
  * Brand lockup.
@@ -18,10 +21,11 @@ export function Logo({
   variant?: "default" | "white";
 }) {
   const src = variant === "white" ? "/RR-logo-white.svg" : "/RR-logo.svg";
+  const { localize } = useCountry();
 
   return (
     <Link
-      href={href}
+      href={localize(href)}
       aria-label={`${siteConfig.name} — home`}
       className={cn("inline-flex items-center", className)}
     >

@@ -48,3 +48,16 @@ export function isCountryCode(value: string): value is CountryCode {
 export function getCountryMeta(code: CountryCode): CountryMeta {
   return COUNTRIES.find((c) => c.code === code) ?? COUNTRIES[0];
 }
+
+/**
+ * Prefixes an internal path with the country's URL segment (e.g. "/co") so
+ * CTAs and nav links keep the visitor on the same locale when navigating.
+ * Leaves external URLs, hashes, and already-prefixed paths untouched.
+ */
+export function localizePath(path: string, country: CountryCode): string {
+  if (country === DEFAULT_COUNTRY) return path;
+  const prefix = `/${country}`;
+  const alreadyPrefixed = path === prefix || path.startsWith(`${prefix}/`);
+  if (!path.startsWith("/") || alreadyPrefixed) return path;
+  return path === "/" ? prefix : `${prefix}${path}`;
+}

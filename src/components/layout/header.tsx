@@ -103,6 +103,7 @@ function MegaMenuPanel({
   onClose: () => void;
 }) {
   const pathname = usePathname();
+  const { localize } = useCountry();
   const columns = group.columns ?? [];
   const hasFeatured = !!group.featured;
 
@@ -141,7 +142,7 @@ function MegaMenuPanel({
                     return (
                       <li key={item.key}>
                         <Link
-                          href={item.href}
+                          href={localize(item.href)}
                           role="menuitem"
                           onClick={onClose}
                           className={cn(
@@ -186,7 +187,7 @@ function MegaMenuPanel({
                   {featured.description}
                 </p>
                 <Link
-                  href={group.featured.href}
+                  href={localize(group.featured.href)}
                   onClick={onClose}
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
                 >
