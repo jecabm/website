@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/preview";
 import { learningItemsQuery, videoTutorialsQuery } from "@/sanity/queries";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { LearningFaq } from "@/components/marketing/learning-faq";
@@ -37,8 +37,8 @@ type VideoTutorial = {
 
 export default async function LearningPage() {
   const [faqItems, videos] = await Promise.all([
-    client.fetch(learningItemsQuery) as Promise<FaqItem[]>,
-    client.fetch(videoTutorialsQuery) as Promise<VideoTutorial[]>,
+    sanityFetch(learningItemsQuery) as Promise<FaqItem[]>,
+    sanityFetch(videoTutorialsQuery) as Promise<VideoTutorial[]>,
   ]);
 
   return (

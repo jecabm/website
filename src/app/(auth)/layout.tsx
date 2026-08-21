@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
+import { useCountry } from "@/hooks/use-country";
 
 /**
  * Minimal, distraction-free chrome for conversion flows (Login, Free Trial).
@@ -11,16 +14,18 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { content, localize } = useCountry();
+
   return (
     <div className="flex min-h-screen flex-col bg-ink-50">
       <header className="flex items-center justify-between px-6 py-5 sm:px-8">
         <Logo />
         <Link
-          href="/"
+          href={localize("/")}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors hover:text-ink-900"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to site
+          {content.auth.backToSite}
         </Link>
       </header>
       <main className="flex flex-1 items-center justify-center px-6 py-12">

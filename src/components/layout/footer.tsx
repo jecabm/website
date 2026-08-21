@@ -8,7 +8,7 @@ import { useCountry } from "@/hooks/use-country";
 
 /** Site footer: brand blurb, translated link groups, and legal row. */
 export function Footer() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const f = content.dictionary.footer;
   const year = 2026;
 
@@ -62,7 +62,7 @@ export function Footer() {
                 {group.items.map((item) => (
                   <li key={item.href + item.label}>
                     <Link
-                      href={item.href}
+                      href={localize(item.href)}
                       className="text-sm text-ink-600 transition-colors hover:text-brand-600"
                     >
                       {item.label}

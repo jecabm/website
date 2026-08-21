@@ -103,6 +103,7 @@ function MegaMenuPanel({
   onClose: () => void;
 }) {
   const pathname = usePathname();
+  const { localize } = useCountry();
   const columns = group.columns ?? [];
   const hasFeatured = !!group.featured;
 
@@ -141,7 +142,7 @@ function MegaMenuPanel({
                     return (
                       <li key={item.key}>
                         <Link
-                          href={item.href}
+                          href={localize(item.href)}
                           role="menuitem"
                           onClick={onClose}
                           className={cn(
@@ -186,7 +187,7 @@ function MegaMenuPanel({
                   {featured.description}
                 </p>
                 <Link
-                  href={group.featured.href}
+                  href={localize(group.featured.href)}
                   onClick={onClose}
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
                 >
@@ -295,8 +296,8 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <CountrySelector />
-          <CartButton />
+          {/* Cart hidden for now (not deleted) — uncomment to restore. */}
+          {/* <CartButton /> */}
           <Button
             href={ctaNav.login.href}
             variant="ghost"
@@ -308,6 +309,7 @@ export function Header() {
           <Button href={ctaNav.freeTrial.href} variant="primary" size="sm">
             {actions.freeTrial}
           </Button>
+          <CountrySelector />
         </div>
 
         {/* Mobile-only: hamburger */}

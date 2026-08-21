@@ -331,6 +331,7 @@ export const auContent: CountryContent = {
     channelsTitle: "Support channels",
   },
   auth: {
+    backToSite: "Back to site",
     login: {
       title: "Welcome back",
       subtitle: "Sign in to manage your assets and inspections.",

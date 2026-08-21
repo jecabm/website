@@ -346,6 +346,7 @@ export const coContent: CountryContent = {
     channelsTitle: "Canales de soporte",
   },
   auth: {
+    backToSite: "Volver al sitio",
     login: {
       title: "Bienvenido de nuevo",
       subtitle: "Inicia sesión para gestionar tus activos e inspecciones.",

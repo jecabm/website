@@ -6,13 +6,13 @@ import { useCountry } from "@/hooks/use-country";
 
 const carouselLogosByCountry = {
   au: [
-    { src: "/clients/Australia/Crane-Reliability-logo.png",           alt: "Crane Reliability", className: "h-16" },
-    { src: "/clients/Australia/Technical-Inspection-services-logo.png", alt: "Technical Inspection Services", className: "h-12" },
-    { src: "/clients/Australia/all-lifting.png",                      alt: "All Lifting", className: "h-10" },
+    { src: "/clients/Australia/Crane-Reliability-logo.svg",           alt: "Crane Reliability", className: "h-16" },
+    { src: "/clients/Australia/Technical-Inspection-services-logo.svg", alt: "Technical Inspection Services", className: "h-12" },
+    { src: "/clients/Australia/ALLLIFTING_logo.svg",                  alt: "All Lifting", className: "h-16" },
   ],
   co: [
-    { src: "/clients/Colombia/Jiw-Soluciones-Logo.png",   alt: "Jiw Soluciones", className: "h-16" },
-    { src: "/clients/Colombia/Servi-Dotaciones-logo.png", alt: "Servi Dotaciones", className: "h-16" },
+    { src: "/clients/Colombia/Jiw-Soluciones-Logo.svg",   alt: "Jiw Soluciones", className: "h-20" },
+    { src: "/clients/Colombia/Servi-Dotaciones-logo.svg", alt: "Servi Dotaciones", className: "h-20" },
   ],
 };
 

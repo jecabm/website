@@ -19,7 +19,8 @@ import {
   UsersIcon,
 } from '@sanity/icons'
 import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
+import {buildLegacyTheme, defineConfig} from 'sanity'
+import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
@@ -28,7 +29,9 @@ import {AnalyticsDashboard} from './src/sanity/plugins/analytics/AnalyticsDashbo
 import {TopPagesWidget} from './src/sanity/plugins/analytics/TopPagesWidget'
 import {ClarityDashboard} from './src/sanity/plugins/clarity/ClarityDashboard'
 import {StudioHome} from './src/sanity/plugins/home/StudioHome'
+import {resolveLocations, resolveMainDocuments} from './src/sanity/plugins/presentation/resolve'
 import {HiddenToolMenu} from './src/sanity/plugins/shell/HiddenToolMenu'
+import {StudioIcon} from './src/sanity/plugins/shell/StudioIcon'
 import {StudioLayout} from './src/sanity/plugins/shell/StudioLayout'
 import {schema} from './src/sanity/schemaTypes'
 import {
@@ -45,10 +48,26 @@ import {
   testimonialsStructure,
 } from './src/sanity/structure'
 
+// Brand orange (#F28500) in place of Sanity's default blue, applied via the
+// legacy CSS custom-property theme API — see https://www.sanity.io/docs/theming-studio
+const theme = buildLegacyTheme({
+  '--brand-primary': '#F28500',
+  '--default-button-primary-color': '#F28500',
+  '--focus-color': '#F28500',
+  '--state-info-color': '#F28500',
+})
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
+  title: 'Regatta Registers',
+  icon: StudioIcon,
+  theme,
+  auth: {
+    providers: (prev) =>
+      prev.filter((provider) => provider.name === 'google' || provider.name === 'github' || provider.name === 'sanity'),
+  },
   schema,
   studio: {
     components: {
@@ -72,6 +91,19 @@ export default defineConfig({
     },
   ],
   plugins: [
+    presentationTool({
+      name: 'presentation',
+      title: 'Preview',
+      previewUrl: {
+        previewMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
+      resolve: {
+        mainDocuments: resolveMainDocuments,
+        locations: resolveLocations,
+      },
+    }),
     dashboardTool({
       name: 'analytics',
       title: 'Analytics',

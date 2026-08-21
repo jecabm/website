@@ -208,6 +208,8 @@ export interface ContactPageContent {
 
 /** Login + Free Trial copy + form labels. */
 export interface AuthContent {
+  /** "Back to site" link shown in the minimal auth-flow header. */
+  backToSite: string;
   login: {
     title: string;
     subtitle: string;

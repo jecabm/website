@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/preview";
 import { urlFor } from "@/sanity/lib/image";
 import { productsQuery } from "@/sanity/queries";
 import { Section } from "@/components/ui/section";
@@ -31,7 +31,7 @@ type Product = {
 };
 
 export default async function ShopPage() {
-  const products = (await client.fetch(productsQuery)) as Product[];
+  const products = (await sanityFetch(productsQuery)) as Product[];
 
   return (
     <>
