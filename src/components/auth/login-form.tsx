@@ -9,7 +9,7 @@ import { useCountry } from "@/hooks/use-country";
 
 /** Authentication UI (frontend-only). */
 export function LoginForm() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const t = content.auth.login;
 
   return (
@@ -53,7 +53,7 @@ export function LoginForm() {
       <p className="mt-6 text-center text-sm text-ink-500">
         {t.noAccount}{" "}
         <Link
-          href="/free-trial"
+          href={localize("/free-trial")}
           className="font-semibold text-brand-600 hover:text-brand-700"
         >
           {t.signUp}

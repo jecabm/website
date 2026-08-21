@@ -45,7 +45,12 @@ export function CountrySelector({ className }: { className?: string }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={content.dictionary.selector.label}
-        className="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm font-medium text-ink-700 transition-colors hover:bg-ink-50"
+        className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.0)",
+          border: "1px solid #e2e8f0",
+          color: "#e2e8f0",
+        }}
       >
         <img
           src={`https://flagcdn.com/24x18/${meta.code.toLowerCase()}.png`}

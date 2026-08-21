@@ -9,7 +9,7 @@ import { useCountry } from "@/hooks/use-country";
 
 /** Conversion-focused signup flow (frontend-only). */
 export function FreeTrialContent() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const t = content.auth.freeTrial;
 
   return (
@@ -61,7 +61,7 @@ export function FreeTrialContent() {
         <p className="mt-5 text-center text-sm text-ink-500">
           {t.haveAccount}{" "}
           <Link
-            href="/login"
+            href={localize("/login")}
             className="font-semibold text-brand-600 hover:text-brand-700"
           >
             {t.login}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/preview";
 import { postsListQuery } from "@/sanity/queries";
 import { Section } from "@/components/ui/section";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -29,7 +29,7 @@ function formatDate(iso: string) {
 }
 
 export default async function BlogPage() {
-  const posts = (await client.fetch(postsListQuery)) as Array<{
+  const posts = (await sanityFetch(postsListQuery)) as Array<{
     _id: string;
     title: string;
     slug: { current: string };

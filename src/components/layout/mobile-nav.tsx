@@ -63,7 +63,7 @@ export function MobileNav() {
     setOpen(false);
     setExpandedGroup(null);
   };
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { nav, actions } = content.dictionary;
 
   // Lock body scroll while the drawer is open.
@@ -145,7 +145,7 @@ export function MobileNav() {
                             return (
                               <Link
                                 key={item.key}
-                                href={item.href}
+                                href={localize(item.href)}
                                 onClick={close}
                                 aria-current={isActive ? "page" : undefined}
                                 className={cn(
@@ -168,7 +168,7 @@ export function MobileNav() {
                 return (
                   <Link
                     key={entry.key}
-                    href={entry.href}
+                    href={localize(entry.href)}
                     onClick={close}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(

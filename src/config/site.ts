@@ -118,42 +118,44 @@ export const mainNav: NavEntry[] = [
     },
   },
   { key: "pricing", label: "Pricing", href: "/pricing" },
-  {
-    key: "resources",
-    label: "Resources",
-    children: [
-      { key: "blog", label: "Blog", href: "/resources/blog" },
-      { key: "learning", label: "Learning Centre", href: "/resources/learning" },
-    ],
-    columns: [
-      {
-        headingKey: "learn",
-        items: [
-          {
-            key: "blog",
-            label: "Blog",
-            href: "/resources/blog",
-            description: "Compliance guides, industry news, and how-to articles.",
-          },
-          {
-            key: "learning",
-            label: "Learning Centre",
-            href: "/resources/learning",
-            description: "Step-by-step guides and video walkthroughs for the platform.",
-          },
-        ],
-      },
-    ],
-    featured: {
-      eyebrow: "New",
-      heading: "Learning Centre",
-      description:
-        "Video walkthroughs and FAQs to help your team get the most out of Regatta Registers.",
-      href: "/resources/learning",
-      cta: "Explore guides",
-    },
-  },
-  { key: "shop", label: "Shop", href: "/shop" },
+  // Resources hidden from the menu for now (not deleted) — uncomment to
+  // restore. Routes at /resources/blog and /resources/learning still work.
+  // {
+  //   key: "resources",
+  //   label: "Resources",
+  //   children: [
+  //     { key: "blog", label: "Blog", href: "/resources/blog" },
+  //     { key: "learning", label: "Learning Centre", href: "/resources/learning" },
+  //   ],
+  //   columns: [
+  //     {
+  //       headingKey: "learn",
+  //       items: [
+  //         {
+  //           key: "blog",
+  //           label: "Blog",
+  //           href: "/resources/blog",
+  //           description: "Compliance guides, industry news, and how-to articles.",
+  //         },
+  //         {
+  //           key: "learning",
+  //           label: "Learning Centre",
+  //           href: "/resources/learning",
+  //           description: "Step-by-step guides and video walkthroughs for the platform.",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   featured: {
+  //     eyebrow: "New",
+  //     heading: "Learning Centre",
+  //     description:
+  //       "Video walkthroughs and FAQs to help your team get the most out of Regatta Registers.",
+  //     href: "/resources/learning",
+  //     cta: "Explore guides",
+  //   },
+  // },
+ // { key: "shop", label: "Shop", href: "/shop" },
   { key: "about", label: "About", href: "/about" },
   { key: "contact", label: "Contact", href: "/contact" },
 ];

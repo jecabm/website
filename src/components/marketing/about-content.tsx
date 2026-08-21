@@ -16,7 +16,7 @@ import { useCountry } from "@/hooks/use-country";
 const valueIcons = [ShieldCheck, Smartphone, Lock];
 
 export function AboutContent() {
-  const { content } = useCountry();
+  const { content, code } = useCountry();
   const a = content.about;
 
   return (
@@ -57,7 +57,7 @@ export function AboutContent() {
         </Container>
       </Section>
 
-      {a.stats.length > 0 && (
+      {code !== "co" && a.stats.length > 0 && (
         <section className="border-y border-ink-200 bg-ink-50">
           <Container className="grid grid-cols-2 gap-8 py-12 sm:grid-cols-4">
             {a.stats.map((stat) => (

@@ -5,7 +5,7 @@ import { MercuryDashboard } from "@/components/marketing/mercury-dashboard";
 import { useCountry } from "@/hooks/use-country";
 
 export function MercuryHero() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { hero, actions } = content.dictionary;
   const zoneRef      = useRef<HTMLDivElement>(null);
   const landscapeRef = useRef<HTMLDivElement>(null);
@@ -181,7 +181,7 @@ export function MercuryHero() {
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="/free-trial" style={{
+            <a href={localize("/free-trial")} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               background: "var(--color-brand-500, #f28500)",
               color: "#fff",
@@ -193,7 +193,7 @@ export function MercuryHero() {
             }}>
               {actions.startFreeTrial}
             </a>
-            <a href="/pricing" style={{
+            <a href={localize("/pricing")} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               background: "rgba(255,255,255,0.10)",
               color: "#ffffff",

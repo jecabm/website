@@ -6,6 +6,7 @@ import {
   COUNTRIES,
   DEFAULT_COUNTRY,
   getCountryMeta,
+  localizePath,
   type CountryCode,
 } from "@/config/countries";
 import { getCountryContent } from "@/content/countries";
@@ -64,11 +65,14 @@ export function useCountry() {
   merged.about = mergeAboutContent(merged.about, aboutOverrides[code]);
   merged = mergeContactContent(merged, contactOverrides[code]);
 
+  const localize = useCallback((path: string) => localizePath(path, code), [code]);
+
   return {
     code,
     meta: getCountryMeta(code),
     content: merged,
     countries: COUNTRIES,
     setCountry: select,
+    localize,
   };
 }
