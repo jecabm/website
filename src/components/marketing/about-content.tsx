@@ -11,13 +11,12 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { BrowserFrame } from "@/components/marketing/preview-frame";
 import { useCountry } from "@/hooks/use-country";
 
 const valueIcons = [ShieldCheck, Smartphone, Lock];
 
 export function AboutContent() {
-  const { content } = useCountry();
+  const { content, code } = useCountry();
   const a = content.about;
 
   return (
@@ -55,35 +54,10 @@ export function AboutContent() {
               <p key={i} className="mt-5 text-lg leading-relaxed text-ink-500 first:mt-0">{para}</p>
             ))}
           </div>
-
-          {/* Preview: the platform our team built and runs on */}
-          <div className="mx-auto mt-12 max-w-3xl">
-            <BrowserFrame url="app.regattaregisters.com/company">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-bold text-ink-900">Company profile</p>
-                <span className="rounded-full bg-brand-500 px-3 py-1 text-[11px] font-bold text-white">
-                  Regatta Registers
-                </span>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {[
-                  { label: "Founded", value: "2018" },
-                  { label: "Sites managed", value: "1,200+" },
-                  { label: "Assets tracked", value: "40,000+" },
-                  { label: "Countries", value: "2" },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-lg border border-ink-200 bg-ink-50 p-3">
-                    <p className="text-[11px] text-ink-400">{stat.label}</p>
-                    <p className="mt-1 text-lg font-bold text-ink-900">{stat.value}</p>
-                  </div>
-                ))}
-              </div>
-            </BrowserFrame>
-          </div>
         </Container>
       </Section>
 
-      {a.stats.length > 0 && (
+      {code !== "co" && a.stats.length > 0 && (
         <section className="border-y border-ink-200 bg-ink-50">
           <Container className="grid grid-cols-2 gap-8 py-12 sm:grid-cols-4">
             {a.stats.map((stat) => (
