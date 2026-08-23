@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Check, ChevronDown, Minus } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
+import { usePricing } from '@/config/context/Pricing';
+import { planToTier } from '@/config/context/Pricing/to-tier';
 import { useCountry } from '@/hooks/use-country';
 import { formatCurrency } from '@/lib/format';
 import { cn } from '@/lib/utils';
@@ -119,12 +121,22 @@ function FaqItem({ q, a }: FaqItemProps) {
   );
 }
 
-/** Country-aware pricing: tiers, comparison table, and FAQ. */
 export function PricingTiers() {
   const { content } = useCountry();
   const { pricing, actions } = content.dictionary;
-  const tiers = content.pricing.tiers;
+  const { plans, loading, error, currency } = usePricing();
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
+
+  const tiers = useMemo(() => {
+    if (plans.length === 0) return content.pricing.tiers;
+    return plans.map((plan) =>
+      planToTier(plan, {
+        currency,
+        startFreeTrial: actions.startFreeTrial,
+        talkToSales: actions.talkToSales,
+      }),
+    );
+  }, [plans, content.pricing.tiers, currency, actions.startFreeTrial, actions.talkToSales]);
 
   return (
     <>
@@ -173,61 +185,87 @@ export function PricingTiers() {
           </div>
 
           <div className="mx-auto mt-12 grid max-w-5xl items-stretch gap-6 lg:grid-cols-3">
-            {tiers.map((tier) => {
-              const amount = billing === 'annual' ? tier.annualAmount : tier.monthlyAmount;
-              return (
-                <Card
-                  key={tier.id}
-                  className={cn('flex flex-col p-6', tier.popular && 'ring-2 ring-brand-500')}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <h2 className="text-lg font-semibold text-ink-900">{tier.name}</h2>
-                    {tier.popular && <Badge variant="brand">{pricing.mostPopular}</Badge>}
-                  </div>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{tier.description}</p>
-
-                  <div className="mt-5">
-                    {amount === null ? (
-                      <span className="text-3xl font-bold tracking-tight text-ink-900">
-                        {pricing.custom}
-                      </span>
-                    ) : (
-                      <>
-                        <span className="text-4xl font-bold tracking-tight text-ink-900">
-                          {formatCurrency(amount, content.locale, content.currency)}
-                        </span>
-                        <span className="text-base font-normal text-ink-500">
-                          {pricing.perMonth}
-                        </span>
-                      </>
-                    )}
-                    {billing === 'annual' && amount !== null && (
-                      <p className="mt-1 text-xs text-ink-400">Billed annually</p>
-                    )}
-                  </div>
-
-                  <ul className="mt-6 space-y-3 text-sm text-ink-700">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-auto pt-8">
-                    <Button
-                      href={tier.monthlyAmount === null ? '/contact' : '/free-trial'}
-                      variant={tier.popular ? 'primary' : 'outline'}
-                      fullWidth
+            {loading && plans.length === 0
+              ? Array.from({ length: 3 }, (_, index) => (
+                  <Card key={index} className="flex min-h-96 flex-col p-6" aria-hidden>
+                    <div className="h-5 w-1/3 animate-pulse rounded bg-ink-100" />
+                    <div className="mt-6 h-10 w-1/2 animate-pulse rounded bg-ink-100" />
+                    <div className="mt-6 space-y-3">
+                      {Array.from({ length: 5 }, (_, row) => (
+                        <div key={row} className="h-4 animate-pulse rounded bg-ink-100" />
+                      ))}
+                    </div>
+                  </Card>
+                ))
+              : tiers.map((tier) => {
+                  // Each interval stands on its own: a plan with no price for the selected one
+                  // falls back to the "Custom" label, never to the other interval's amount.
+                  const amount = billing === 'annual' ? tier.annualAmount : tier.monthlyAmount;
+                  const showCustom = tier.custom === true || amount === null;
+                  return (
+                    <Card
+                      key={tier.id}
+                      className={cn('flex flex-col p-6', tier.popular && 'ring-2 ring-brand-500')}
                     >
-                      {tier.cta}
-                    </Button>
-                  </div>
-                </Card>
-              );
-            })}
+                      <div className="flex items-center justify-between gap-3">
+                        <h2 className="text-lg font-semibold text-ink-900">{tier.name}</h2>
+                        {tier.popular && <Badge variant="brand">{pricing.mostPopular}</Badge>}
+                      </div>
+                      {tier.description && (
+                        <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
+                          {tier.description}
+                        </p>
+                      )}
+
+                      <div className="mt-5">
+                        {showCustom ? (
+                          <span className="text-3xl font-bold tracking-tight text-ink-900">
+                            {pricing.custom}
+                          </span>
+                        ) : (
+                          <>
+                            <span className="text-4xl font-bold tracking-tight text-ink-900">
+                              {formatCurrency(amount, content.locale, content.currency)}
+                            </span>
+                            <span className="text-base font-normal text-ink-500">
+                              {billing === 'annual' ? pricing.perYear : pricing.perMonth}
+                            </span>
+                          </>
+                        )}
+                        {billing === 'annual' && !showCustom && (
+                          <p className="mt-1 text-xs text-ink-400">Billed annually</p>
+                        )}
+                      </div>
+
+                      <ul className="mt-6 space-y-3 text-sm text-ink-700">
+                        {tier.features.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2.5">
+                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="mt-auto pt-8">
+                        <Button
+                          href={tier.contactSales === true ? '/contact' : '/free-trial'}
+                          variant={tier.popular ? 'primary' : 'outline'}
+                          fullWidth
+                        >
+                          {tier.cta}
+                        </Button>
+                      </div>
+                    </Card>
+                  );
+                })}
           </div>
+
+          {/* The static tiers are already on screen as the fallback; this only says they may be stale. */}
+          {error && (
+            <p className="mt-8 text-center text-sm text-ink-400" role="status">
+              {error}
+            </p>
+          )}
 
           <p className="mt-8 text-center text-sm text-ink-400">{pricing.note}</p>
         </Container>
@@ -270,7 +308,7 @@ export function PricingTiers() {
                           )}
                         </span>
                         <Button
-                          href={tier.monthlyAmount === null ? '/contact' : '/free-trial'}
+                          href={tier.contactSales === true ? '/contact' : '/free-trial'}
                           variant={tier.popular ? 'primary' : 'outline'}
                           size="sm"
                         >

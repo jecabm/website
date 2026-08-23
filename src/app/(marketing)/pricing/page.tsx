@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { PricingTiers } from '@/components/marketing/pricing-tiers';
+import { PricingProvider } from '@/config/context/Pricing';
 import { SanityPricingProvider } from '@/content/sanity-pricing-context';
 import { getRequestCountry } from '@/lib/request-country';
 import { resolveMetadata } from '@/lib/seo';
@@ -35,7 +36,9 @@ export default async function PricingPage() {
 
   return (
     <SanityPricingProvider value={{ au, co }}>
-      <PricingTiers />
+      <PricingProvider>
+        <PricingTiers />
+      </PricingProvider>
     </SanityPricingProvider>
   );
 }

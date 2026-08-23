@@ -1,27 +1,29 @@
+import React from 'react';
+import { Mail, ShieldCheck, Wrench } from 'lucide-react';
+
 import {
-  Button,
   Badge,
+  Button,
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-  Section,
-  SectionHeading,
+  Checkbox,
   Field,
   Input,
-  Textarea,
+  Section,
+  SectionHeading,
   Select,
-  Checkbox,
-} from "@/components/ui";
-import { Mail, ShieldCheck, Wrench } from "lucide-react";
+  Textarea,
+} from '@/components/ui';
 
 /**
  * TEMPORARY design-system preview (STEP 2 review only).
  * Remove before STEP 4. Not linked in navigation.
  */
-export const metadata = { title: "Style Guide", robots: { index: false } };
+export const metadata = { title: 'Style Guide', robots: { index: false } };
 
 function Swatch({ name, className }: { name: string; className: string }) {
   return (
@@ -32,18 +34,10 @@ function Swatch({ name, className }: { name: string; className: string }) {
   );
 }
 
-function Block({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-5 border-t border-ink-200 pt-8">
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-ink-400">
-        {title}
-      </h3>
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-ink-400">{title}</h3>
       {children}
     </div>
   );
@@ -60,8 +54,8 @@ export default function StyleGuidePage() {
             Regatta Registers — Style Guide
           </h1>
           <p className="mt-2 max-w-2xl text-ink-500">
-            STEP 2 component preview. Industrial enterprise SaaS · Plus Jakarta
-            Sans · orange primary · 8px grid.
+            STEP 2 component preview. Industrial enterprise SaaS · Plus Jakarta Sans · orange
+            primary · 8px grid.
           </p>
         </div>
       </div>
@@ -109,12 +103,10 @@ export default function StyleGuidePage() {
             <h2 className="text-3xl font-bold tracking-tight text-ink-900">
               Heading 2 — Inspections &amp; compliance
             </h2>
-            <h3 className="text-xl font-semibold text-ink-900">
-              Heading 3 — Section title
-            </h3>
+            <h3 className="text-xl font-semibold text-ink-900">Heading 3 — Section title</h3>
             <p className="max-w-2xl text-base leading-relaxed text-ink-600">
-              Body — Manage your assets, inspections, and compliance in one
-              secure place. Reduce admin time and never miss an inspection.
+              Body — Manage your assets, inspections, and compliance in one secure place. Reduce
+              admin time and never miss an inspection.
             </p>
             <p className="text-sm text-ink-500">Small / muted supporting text.</p>
           </div>
@@ -185,18 +177,18 @@ export default function StyleGuidePage() {
             {[
               {
                 icon: ShieldCheck,
-                title: "Automated Compliance",
-                desc: "Stay audit-ready with automated alerts and secure records.",
+                title: 'Automated Compliance',
+                desc: 'Stay audit-ready with automated alerts and secure records.',
               },
               {
                 icon: Wrench,
-                title: "Asset & Fleet Management",
-                desc: "Track every asset and inspection in one structured place.",
+                title: 'Asset & Fleet Management',
+                desc: 'Track every asset and inspection in one structured place.',
               },
               {
                 icon: Mail,
-                title: "Real-Time Visibility",
-                desc: "Know the status of every register at a glance.",
+                title: 'Real-Time Visibility',
+                desc: 'Know the status of every register at a glance.',
               },
             ].map(({ icon: Icon, title, desc }) => (
               <Card key={title} interactive>

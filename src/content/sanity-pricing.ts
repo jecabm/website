@@ -1,5 +1,5 @@
-import type { CountryContent, FaqItem, PricingTier } from "@/content/countries/types";
-import { pick } from "@/lib/content-merge";
+import type { CountryContent, FaqItem, PricingTier } from '@/content/countries/types';
+import { pick } from '@/lib/content-merge';
 
 interface SanityTier {
   _key?: string;
@@ -10,11 +10,13 @@ interface SanityTier {
   features?: string[];
   cta?: string;
   popular?: boolean;
+  contactSales?: boolean;
+  custom?: boolean;
 }
 
 /** Shape returned by `pricingPageQuery` — every field optional since Studio editors may leave fields blank. */
 export interface SanityPricingDoc {
-  country?: "au" | "co";
+  country?: 'au' | 'co';
   hero?: {
     eyebrow?: string;
     title?: string;
@@ -24,6 +26,7 @@ export interface SanityPricingDoc {
   tiers?: SanityTier[];
   labels?: {
     perMonth?: string;
+    perYear?: string;
     custom?: string;
     mostPopular?: string;
     comparePlans?: string;
@@ -51,18 +54,23 @@ function mergeTiers(base: PricingTier[], override?: SanityTier[]): PricingTier[]
   if (!override || override.length === 0) return base;
   return override.map((t, i) => ({
     id: t._key ?? `tier-${i}`,
-    name: pick(t.name, ""),
-    description: pick(t.description, ""),
+    name: pick(t.name, ''),
+    description: pick(t.description, ''),
     monthlyAmount: t.monthlyAmount ?? null,
     annualAmount: t.annualAmount ?? null,
     features: pick(t.features, []),
-    cta: pick(t.cta, ""),
+    cta: pick(t.cta, ''),
     popular: t.popular ?? false,
+    contactSales: t.contactSales ?? false,
+    custom: t.custom ?? t.monthlyAmount == null,
   }));
 }
 
 /** Layers Studio-edited pricing copy over the static per-country defaults. */
-export function mergePricingContent(base: CountryContent, override?: SanityPricingDoc | null): CountryContent {
+export function mergePricingContent(
+  base: CountryContent,
+  override?: SanityPricingDoc | null,
+): CountryContent {
   if (!override) return base;
   const { pricing } = base.dictionary;
   const labels = override.labels;
@@ -77,6 +85,7 @@ export function mergePricingContent(base: CountryContent, override?: SanityPrici
         subtitle: pick(override.hero?.subtitle, pricing.subtitle),
         note: pick(override.hero?.note, pricing.note),
         perMonth: pick(labels?.perMonth, pricing.perMonth),
+        perYear: pick(labels?.perYear, pricing.perYear),
         custom: pick(labels?.custom, pricing.custom),
         mostPopular: pick(labels?.mostPopular, pricing.mostPopular),
         comparePlans: pick(labels?.comparePlans, pricing.comparePlans),
@@ -91,7 +100,10 @@ export function mergePricingContent(base: CountryContent, override?: SanityPrici
         },
         faqTitle: pick(override.faq?.title, pricing.faqTitle),
         stillHaveQuestions: pick(override.closing?.title, pricing.stillHaveQuestions),
-        stillHaveQuestionsSubtitle: pick(override.closing?.subtitle, pricing.stillHaveQuestionsSubtitle),
+        stillHaveQuestionsSubtitle: pick(
+          override.closing?.subtitle,
+          pricing.stillHaveQuestionsSubtitle,
+        ),
         faqItems: pick(override.faq?.items, pricing.faqItems),
       },
     },
