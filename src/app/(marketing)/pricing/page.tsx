@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import { PricingTiers } from "@/components/marketing/pricing-tiers";
-import { SanityPricingProvider } from "@/content/sanity-pricing-context";
-import { sanityFetch } from "@/sanity/lib/preview";
-import { pricingPageQuery } from "@/sanity/queries";
-import { resolveMetadata } from "@/lib/seo";
-import { getSiteSettings } from "@/lib/site-settings";
-import { getRequestCountry } from "@/lib/request-country";
+import type { Metadata } from 'next';
+
+import { PricingTiers } from '@/components/marketing/pricing-tiers';
+import { PricingProvider } from '@/config/context/Pricing';
+import { SanityPricingProvider } from '@/content/sanity-pricing-context';
+import { getRequestCountry } from '@/lib/request-country';
+import { resolveMetadata } from '@/lib/seo';
+import { getSiteSettings } from '@/lib/site-settings';
+import { sanityFetch } from '@/sanity/lib/preview';
+import { pricingPageQuery } from '@/sanity/queries';
 
 const fallbackDescription =
   "Simple, transparent pricing — Standard, Pro, and Enterprise plans, shown in your country's currency.";
@@ -19,22 +21,24 @@ export async function generateMetadata(): Promise<Metadata> {
   return resolveMetadata({
     seo: pricing?.seo,
     globalSeo,
-    path: "/pricing",
+    path: '/pricing',
     country,
-    fallbackTitle: "Pricing",
+    fallbackTitle: 'Pricing',
     fallbackDescription,
   });
 }
 
 export default async function PricingPage() {
   const [au, co] = await Promise.all([
-    sanityFetch(pricingPageQuery, { country: "au" }),
-    sanityFetch(pricingPageQuery, { country: "co" }),
+    sanityFetch(pricingPageQuery, { country: 'au' }),
+    sanityFetch(pricingPageQuery, { country: 'co' }),
   ]);
 
   return (
     <SanityPricingProvider value={{ au, co }}>
-      <PricingTiers />
+      <PricingProvider>
+        <PricingTiers />
+      </PricingProvider>
     </SanityPricingProvider>
   );
 }

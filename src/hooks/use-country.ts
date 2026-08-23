@@ -1,29 +1,30 @@
-"use client";
+'use client';
 
-import { useCallback, useContext } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useCallback, useContext } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+
 import {
   COUNTRIES,
+  type CountryCode,
   DEFAULT_COUNTRY,
   getCountryMeta,
   localizePath,
-  type CountryCode,
-} from "@/config/countries";
-import { getCountryContent } from "@/content/countries";
-import { SanityHomeContext } from "@/content/sanity-home-context";
-import { mergeHomeContent } from "@/content/sanity-home";
-import { SanityPricingContext } from "@/content/sanity-pricing-context";
-import { mergePricingContent } from "@/content/sanity-pricing";
-import { SanityAboutContext } from "@/content/sanity-about-context";
-import { mergeAboutContent } from "@/content/sanity-about";
-import { SanityContactContext } from "@/content/sanity-contact-context";
-import { mergeContactContent } from "@/content/sanity-contact";
+} from '@/config/countries';
+import { getCountryContent } from '@/content/countries';
+import { mergeAboutContent } from '@/content/sanity-about';
+import { SanityAboutContext } from '@/content/sanity-about-context';
+import { mergeContactContent } from '@/content/sanity-contact';
+import { SanityContactContext } from '@/content/sanity-contact-context';
+import { mergeHomeContent } from '@/content/sanity-home';
+import { SanityHomeContext } from '@/content/sanity-home-context';
+import { mergePricingContent } from '@/content/sanity-pricing';
+import { SanityPricingContext } from '@/content/sanity-pricing-context';
 
 /** Maps the current pathname (as seen by the browser, e.g. already under /co) to its equivalent under `country`. */
 function pathForCountry(pathname: string, country: CountryCode): string {
-  const withoutCoPrefix = pathname === "/co" ? "/" : (pathname.replace(/^\/co(?=\/|$)/, "") || "/");
-  if (country === "co") {
-    return withoutCoPrefix === "/" ? "/co" : `/co${withoutCoPrefix}`;
+  const withoutCoPrefix = pathname === '/co' ? '/' : pathname.replace(/^\/co(?=\/|$)/, '') || '/';
+  if (country === 'co') {
+    return withoutCoPrefix === '/' ? '/co' : `/co${withoutCoPrefix}`;
   }
   return withoutCoPrefix;
 }
@@ -36,7 +37,7 @@ function pathForCountry(pathname: string, country: CountryCode): string {
  * usePathname() re-evaluates on every navigation, so this can't.
  */
 function codeFromPathname(pathname: string): CountryCode {
-  return pathname === "/co" || pathname.startsWith("/co/") ? "co" : DEFAULT_COUNTRY;
+  return pathname === '/co' || pathname.startsWith('/co/') ? 'co' : DEFAULT_COUNTRY;
 }
 
 /** Read the active country (resolved from the URL), its metadata, and its localized content. */
@@ -50,7 +51,7 @@ export function useCountry() {
       if (next === code) return;
       router.push(pathForCountry(pathname, next));
     },
-    [code, pathname, router]
+    [code, pathname, router],
   );
 
   const homeOverrides = useContext(SanityHomeContext);
@@ -60,7 +61,7 @@ export function useCountry() {
 
   let merged = mergePricingContent(
     mergeHomeContent(getCountryContent(code), homeOverrides[code]),
-    pricingOverrides[code]
+    pricingOverrides[code],
   );
   merged.about = mergeAboutContent(merged.about, aboutOverrides[code]);
   merged = mergeContactContent(merged, contactOverrides[code]);

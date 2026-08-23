@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import { useRef, useEffect } from "react";
-import Image from "next/image";
-import { X, ShoppingCart, Plus, Minus, Trash2 } from "lucide-react";
-import { useCart } from "@/hooks/use-cart";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useRef } from 'react';
+import { useState } from 'react';
+import { Minus, Plus, ShoppingCart, Trash2, X } from 'lucide-react';
+import Image from 'next/image';
+
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/hooks/use-cart';
+import { cn } from '@/lib/utils';
 
 function formatPrice(dollars: number) {
-  return new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD" }).format(dollars);
+  return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(dollars);
 }
 
 type Props = { open: boolean; onClose: () => void };
@@ -25,22 +26,24 @@ export function CartDrawer({ open, onClose }: Props) {
     function handler(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, [open, onClose]);
 
   // Lock body scroll when open
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [open]);
 
   async function handleCheckout() {
     setLoading(true);
     try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: items.map((i) => ({
             stripePriceId: i.stripePriceId,
@@ -56,7 +59,7 @@ export function CartDrawer({ open, onClose }: Props) {
       const data = await res.json();
       if (data.url) window.location.href = data.url;
     } catch {
-      alert("Something went wrong. Please try again.");
+      alert('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -67,8 +70,8 @@ export function CartDrawer({ open, onClose }: Props) {
       {/* Backdrop */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-ink-900/40 backdrop-blur-sm transition-opacity duration-300",
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          'fixed inset-0 z-40 bg-ink-900/40 backdrop-blur-sm transition-opacity duration-300',
+          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
         )}
       />
 
@@ -76,8 +79,8 @@ export function CartDrawer({ open, onClose }: Props) {
       <div
         ref={ref}
         className={cn(
-          "fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col bg-white shadow-popover transition-transform duration-300",
-          open ? "translate-x-0 visible" : "translate-x-full invisible"
+          'fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col bg-white shadow-popover transition-transform duration-300',
+          open ? 'translate-x-0 visible' : 'translate-x-full invisible',
         )}
       >
         {/* Header */}
@@ -162,7 +165,9 @@ export function CartDrawer({ open, onClose }: Props) {
               <span className="text-sm text-ink-500">Subtotal</span>
               <span className="text-base font-bold text-ink-900">{formatPrice(total)}</span>
             </div>
-            <p className="text-xs text-ink-400">Shipping calculated at checkout. AU & NZ delivery.</p>
+            <p className="text-xs text-ink-400">
+              Shipping calculated at checkout. AU & NZ delivery.
+            </p>
             <Button fullWidth loading={loading} onClick={handleCheckout}>
               Proceed to Checkout
             </Button>

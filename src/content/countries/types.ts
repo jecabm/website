@@ -1,17 +1,16 @@
-import type { CountryCode } from "@/config/countries";
+import type { CountryCode } from '@/config/countries';
 
-/** A pricing plan, priced in the country's own currency. */
 export interface PricingTier {
   id: string;
   name: string;
   description: string;
-  /** Monthly amount. `null` = custom / contact sales. */
   monthlyAmount: number | null;
-  /** Annual amount (billed annually). `null` = custom / contact sales. */
   annualAmount: number | null;
   features: string[];
   cta: string;
   popular?: boolean;
+  contactSales?: boolean;
+  custom?: boolean;
 }
 
 export interface FeatureItem {
@@ -34,7 +33,7 @@ export interface FaqItem {
   a: string;
 }
 
-/** UI translation strings (chrome + shared labels). */
+/** UI translation strings (chrome and shared labels). */
 export interface Dictionary {
   nav: {
     home: string;
@@ -98,6 +97,7 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     perMonth: string;
+    perYear: string;
     custom: string;
     mostPopular: string;
     note: string;
@@ -118,7 +118,14 @@ export interface Dictionary {
   };
   footer: {
     tagline: string;
-    groups: { product: string; features: string; resources: string; company: string; account: string; legal: string };
+    groups: {
+      product: string;
+      features: string;
+      resources: string;
+      company: string;
+      account: string;
+      legal: string;
+    };
     links: {
       overview: string;
       pricing: string;
