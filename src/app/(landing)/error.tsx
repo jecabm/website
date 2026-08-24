@@ -28,7 +28,7 @@ export default function LandingError({
             >
               Contact us
             </Link>
-            <Button href="/free-trial" size="sm">
+            <Button href="https://www.regattaregisters.com/contact" size="sm">
               Start Free Trial
             </Button>
           </div>

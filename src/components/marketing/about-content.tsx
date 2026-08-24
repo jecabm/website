@@ -35,7 +35,7 @@ export function AboutContent() {
                 <p key={i} className="mt-5 text-lg leading-relaxed text-ink-500">{para}</p>
               ))}
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/free-trial" size="lg">Start free trial</Button>
+                <Button href="https://www.regattaregisters.com/contact" size="lg">Start free trial</Button>
                 <Button href="/pricing" size="lg" variant="outline">View pricing</Button>
               </div>
             </div>
@@ -112,7 +112,7 @@ export function AboutContent() {
             {a.cta.subtitle}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/free-trial" size="lg">
+            <Button href="https://www.regattaregisters.com/contact" size="lg">
               {a.cta.primary}
             </Button>
             <Button

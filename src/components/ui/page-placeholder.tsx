@@ -10,7 +10,7 @@ export function PagePlaceholder({
   eyebrow,
   title,
   description,
-  primaryCta = { label: "Start Free Trial", href: "/free-trial" },
+  primaryCta = { label: "Start Free Trial", href: "https://www.regattaregisters.com/contact" },
   secondaryCta,
 }: {
   eyebrow: string;

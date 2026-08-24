@@ -1,12 +1,5 @@
-import type { Metadata } from "next";
-import { FreeTrialContent } from "@/components/auth/free-trial-content";
-
-export const metadata: Metadata = {
-  title: "Free Trial",
-  description:
-    "Start your free Regatta Registers trial — no setup costs, no credit card required.",
-};
+import { redirect } from "next/navigation";
 
 export default function FreeTrialPage() {
-  return <FreeTrialContent />;
+  redirect("https://www.regattaregisters.com/contact");
 }

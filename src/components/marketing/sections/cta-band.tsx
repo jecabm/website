@@ -38,7 +38,7 @@ export function CtaBand() {
             {cta.subtitle}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
-            <Button href="/free-trial" size="lg">
+            <Button href="https://www.regattaregisters.com/contact" size="lg">
               {cta.primary}
             </Button>
             <Button

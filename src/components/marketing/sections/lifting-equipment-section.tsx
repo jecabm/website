@@ -60,7 +60,7 @@ export function LiftingEquipmentSection() {
 
         <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <Link
-            href={localize("/free-trial")}
+            href={"https://www.regattaregisters.com/contact"}
             className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
           >
             {liftingEquipment.ctaPrimary}

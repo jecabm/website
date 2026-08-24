@@ -248,7 +248,7 @@ export function PricingTiers() {
 
                       <div className="mt-auto pt-8">
                         <Button
-                          href={tier.contactSales === true ? '/contact' : '/free-trial'}
+                          href={tier.contactSales === true ? '/contact' : 'https://www.regattaregisters.com/contact'}
                           variant={tier.popular ? 'primary' : 'outline'}
                           fullWidth
                         >
@@ -308,7 +308,7 @@ export function PricingTiers() {
                           )}
                         </span>
                         <Button
-                          href={tier.contactSales === true ? '/contact' : '/free-trial'}
+                          href={tier.contactSales === true ? '/contact' : 'https://www.regattaregisters.com/contact'}
                           variant={tier.popular ? 'primary' : 'outline'}
                           size="sm"
                         >
@@ -366,7 +366,7 @@ export function PricingTiers() {
             <h3 className="text-xl font-bold text-white">{pricing.stillHaveQuestions}</h3>
             <p className="mt-2 text-ink-300">{pricing.stillHaveQuestionsSubtitle}</p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href="/free-trial" size="lg">
+              <Button href="https://www.regattaregisters.com/contact" size="lg">
                 {actions.startFreeTrial}
               </Button>
               <Button

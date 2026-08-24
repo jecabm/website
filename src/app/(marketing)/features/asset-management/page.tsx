@@ -65,7 +65,7 @@ export default function AssetManagementPage() {
           with compliance tracking built in from day one.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href="/free-trial" size="lg">Start free trial</Button>
+          <Button href="https://www.regattaregisters.com/contact" size="lg">Start free trial</Button>
           <Button href="/pricing" size="lg" variant="outline">View pricing</Button>
         </div>
       </Section>
@@ -99,7 +99,7 @@ export default function AssetManagementPage() {
             Join hundreds of industrial operators managing compliance with Regatta Registers.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/free-trial" size="lg">Start free trial</Button>
+            <Button href="https://www.regattaregisters.com/contact" size="lg">Start free trial</Button>
             <Button
               href="/contact"
               size="lg"

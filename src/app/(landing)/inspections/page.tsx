@@ -309,7 +309,7 @@ export default async function InspectionsLandingPage() {
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button
-              href="/free-trial"
+              href="https://www.regattaregisters.com/contact"
               size="lg"
               variant="outline"
               className="border-white/40 bg-transparent text-white hover:bg-white/10"

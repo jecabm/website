@@ -374,7 +374,7 @@ export function FeaturesPageContent({ sanityFeatures }: FeaturesPageContentProps
             {hero.subtitle}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/free-trial" size="lg">
+            <Button href="https://www.regattaregisters.com/contact" size="lg">
               {hero.ctaPrimary}
             </Button>
             <Button href="#asset-management" size="lg" variant="outline">
@@ -432,7 +432,7 @@ export function FeaturesPageContent({ sanityFeatures }: FeaturesPageContentProps
                   </h2>
                   <p className="text-base leading-relaxed text-ink-600">{section.description}</p>
                   <BulletList items={section.bullets} />
-                  <Button href="/free-trial" variant="outline" className="mt-2 gap-1.5">
+                  <Button href="https://www.regattaregisters.com/contact" variant="outline" className="mt-2 gap-1.5">
                     {section.ctaLabel}
                     <ChevronRight className="h-4 w-4" aria-hidden />
                   </Button>
@@ -454,7 +454,7 @@ export function FeaturesPageContent({ sanityFeatures }: FeaturesPageContentProps
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-ink-300">{closingCta.subtitle}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/free-trial" size="lg">
+            <Button href="https://www.regattaregisters.com/contact" size="lg">
               {closingCta.ctaPrimary}
             </Button>
             <Button

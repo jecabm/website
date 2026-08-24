@@ -88,7 +88,7 @@ export function IndustriesSection() {
         })}
       </div>
       <div className="mt-10 text-center">
-        <Button href="/free-trial" size="lg">
+        <Button href="https://www.regattaregisters.com/contact" size="lg">
           {content.home.cta.primary}
         </Button>
       </div>
