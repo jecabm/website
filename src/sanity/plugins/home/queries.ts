@@ -46,7 +46,7 @@ export interface DocSummary {
   country?: string
 }
 
-const COUNTRY_LABEL: Record<string, string> = { au: 'Australia', co: 'Colombia' }
+export const COUNTRY_LABEL: Record<string, string> = { au: 'Australia', co: 'Colombia' }
 
 export function getDocLabel(doc: DocSummary): string {
   if (doc.title) return doc.title
@@ -104,5 +104,6 @@ export const seoHealthQuery = `*[_type in ["post","product"] && !(_id in path("d
 }`
 
 export const quickFindQuery = `*[_type in $types && (
-  title match $q || name match $q || question match $q || authorName match $q
+  title match $q || name match $q || question match $q || authorName match $q ||
+  _type in $matchedTypes || country in $matchedCountries
 )][0...8]${DOC_PROJECTION}`

@@ -170,7 +170,12 @@ export function HomeDashboard() {
   const searchResults = useMemo(() => {
     if (!query.trim()) return []
     const q = query.trim().toLowerCase()
-    return rows.filter((r) => r.title.toLowerCase().includes(q)).slice(0, 8)
+    return rows
+      .filter(
+        (r) =>
+          r.title.toLowerCase().includes(q) || TYPE_LABEL[r.type].toLowerCase().includes(q)
+      )
+      .slice(0, 8)
   }, [query, rows])
 
   const greeting = useMemo(() => {

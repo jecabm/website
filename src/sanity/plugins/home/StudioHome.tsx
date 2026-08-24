@@ -7,6 +7,7 @@ import {IntentLink} from 'sanity/router'
 import {apiVersion} from '../../env'
 import {
   CONTENT_TYPES,
+  COUNTRY_LABEL,
   DocSummary,
   SeoSummary,
   TYPE_GROUPS,
@@ -122,8 +123,18 @@ export function StudioHome() {
         return
       }
       setSearching(true)
+      const lower = trimmed.toLowerCase()
+      const matchedTypes = CONTENT_TYPES.filter((t) => TYPE_LABELS[t].toLowerCase().includes(lower))
+      const matchedCountries = Object.keys(COUNTRY_LABEL).filter((code) =>
+        COUNTRY_LABEL[code].toLowerCase().includes(lower)
+      )
       client
-        .fetch<DocSummary[]>(quickFindQuery, {types: CONTENT_TYPES, q: `${trimmed}*`})
+        .fetch<DocSummary[]>(quickFindQuery, {
+          types: CONTENT_TYPES,
+          q: `${trimmed}*`,
+          matchedTypes,
+          matchedCountries,
+        })
         .then(setResults)
         .finally(() => setSearching(false))
     }, 250)
