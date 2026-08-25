@@ -6,7 +6,7 @@ import { useCountry } from "@/hooks/use-country";
 import { useInView } from "@/hooks/use-in-view";
 
 export function CtaBand() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { cta } = content.home;
   const { ref, inView } = useInView(0.3);
 
@@ -38,7 +38,7 @@ export function CtaBand() {
             {cta.subtitle}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
-            <Button href="https://www.regattaregisters.com/contact" size="lg">
+            <Button href={localize("/contact")} size="lg">
               {cta.primary}
             </Button>
             <Button

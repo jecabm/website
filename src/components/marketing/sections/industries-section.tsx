@@ -42,7 +42,7 @@ const cards = [
 
 /** Industries served — rich gradient cards. */
 export function IndustriesSection() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { industries } = content.home;
 
   return (
@@ -88,7 +88,7 @@ export function IndustriesSection() {
         })}
       </div>
       <div className="mt-10 text-center">
-        <Button href="https://www.regattaregisters.com/contact" size="lg">
+        <Button href={localize("/contact")} size="lg">
           {content.home.cta.primary}
         </Button>
       </div>

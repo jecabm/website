@@ -1,5 +1,11 @@
 import { redirect } from "next/navigation";
+import { getRequestCountry } from "@/lib/request-country";
 
-export default function FreeTrialPage() {
-  redirect("https://www.regattaregisters.com/contact");
+export default async function FreeTrialPage() {
+  const country = await getRequestCountry();
+  redirect(
+    country === "co"
+      ? "https://www.regattaregisters.com/co/contact"
+      : "https://www.regattaregisters.com/contact"
+  );
 }

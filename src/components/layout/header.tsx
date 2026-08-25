@@ -207,7 +207,7 @@ function MegaMenuPanel({
 export function Header() {
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const pathname = usePathname();
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { nav, actions } = content.dictionary;
 
   const close = useCallback(() => setActiveKey(null), []);
@@ -306,7 +306,7 @@ export function Header() {
           >
             {actions.login}
           </Button>
-          <Button href={ctaNav.freeTrial.href} variant="primary" size="sm">
+          <Button href={localize(ctaNav.freeTrial.href)} variant="primary" size="sm">
             {actions.freeTrial}
           </Button>
           <CountrySelector />

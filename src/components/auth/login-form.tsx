@@ -53,7 +53,7 @@ export function LoginForm() {
       <p className="mt-6 text-center text-sm text-ink-500">
         {t.noAccount}{" "}
         <Link
-          href={"https://www.regattaregisters.com/contact"}
+          href={localize("/contact")}
           className="font-semibold text-brand-600 hover:text-brand-700"
         >
           {t.signUp}

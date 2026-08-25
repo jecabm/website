@@ -190,7 +190,7 @@ export function MobileNav() {
             <Button href={ctaNav.login.href} onClick={close} variant="outline" size="lg">
               {actions.login}
             </Button>
-            <Button href={ctaNav.freeTrial.href} onClick={close} variant="primary" size="lg">
+            <Button href={localize(ctaNav.freeTrial.href)} onClick={close} variant="primary" size="lg">
               {actions.freeTrial}
             </Button>
           </div>

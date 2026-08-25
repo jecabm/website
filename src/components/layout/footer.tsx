@@ -18,7 +18,7 @@ export function Footer() {
       items: [
         { label: f.links.overview, href: "/" },
         { label: f.links.pricing, href: "/pricing" },
-        { label: f.links.freeTrial, href: "https://www.regattaregisters.com/contact" },
+        { label: f.links.freeTrial, href: "/contact" },
       ],
     },
     {

@@ -181,7 +181,7 @@ export function MercuryHero() {
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-            <a href={"https://www.regattaregisters.com/contact"} style={{
+            <a href={localize("/contact")} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               background: "var(--color-brand-500, #f28500)",
               color: "#fff",

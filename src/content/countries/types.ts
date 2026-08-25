@@ -100,6 +100,9 @@ export interface Dictionary {
     perYear: string;
     custom: string;
     mostPopular: string;
+    billingMonthly: string;
+    billingAnnual: string;
+    annualSavings: string;
     note: string;
     comparePlans: string;
     compareSubtitle: string;

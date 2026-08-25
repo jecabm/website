@@ -29,6 +29,9 @@ export interface SanityPricingDoc {
     perYear?: string;
     custom?: string;
     mostPopular?: string;
+    billingMonthly?: string;
+    billingAnnual?: string;
+    annualSavings?: string;
     comparePlans?: string;
     compareSubtitle?: string;
     featureColumn?: string;
@@ -88,6 +91,9 @@ export function mergePricingContent(
         perYear: pick(labels?.perYear, pricing.perYear),
         custom: pick(labels?.custom, pricing.custom),
         mostPopular: pick(labels?.mostPopular, pricing.mostPopular),
+        billingMonthly: pick(labels?.billingMonthly, pricing.billingMonthly),
+        billingAnnual: pick(labels?.billingAnnual, pricing.billingAnnual),
+        annualSavings: pick(labels?.annualSavings, pricing.annualSavings),
         comparePlans: pick(labels?.comparePlans, pricing.comparePlans),
         compareSubtitle: pick(labels?.compareSubtitle, pricing.compareSubtitle),
         featureColumn: pick(labels?.featureColumn, pricing.featureColumn),

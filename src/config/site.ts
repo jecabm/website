@@ -113,7 +113,7 @@ export const mainNav: NavEntry[] = [
       heading: "Everything you need to run a compliant operation",
       description:
         "From asset registers to daily prestart checks — Regatta Registers connects your whole compliance workflow in one place.",
-      href: "https://www.regattaregisters.com/contact",
+      href: "/contact",
       cta: "Start free trial",
     },
   },
@@ -163,7 +163,7 @@ export const mainNav: NavEntry[] = [
 /** Conversion / auth actions shown as buttons in the header. */
 export const ctaNav = {
   login: { key: "login", label: "Login", href: "https://app.regattaregisters.com/auth/login" },
-  freeTrial: { key: "free-trial", label: "Free Trial", href: "https://www.regattaregisters.com/contact" },
+  freeTrial: { key: "free-trial", label: "Free Trial", href: "/contact" },
 } as const;
 
 /** Footer link groups. */
@@ -191,7 +191,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { key: "pricing", label: "Pricing", href: "/pricing" },
       { key: "about", label: "About Us", href: "/about" },
       { key: "contact", label: "Contact", href: "/contact" },
-      { key: "free-trial", label: "Free Trial", href: "https://www.regattaregisters.com/contact" },
+      { key: "free-trial", label: "Free Trial", href: "/contact" },
     ],
   },
   {

@@ -173,7 +173,7 @@ function FaqItem({ q, a }: FaqItemProps) {
 }
 
 export function PricingTiers() {
-  const { content, code } = useCountry();
+  const { content, code, localize } = useCountry();
   const { pricing, actions } = content.dictionary;
   const comparisonRows = code === 'co' ? comparisonRowsEs : comparisonRowsEn;
   const { plans, loading, error, currency } = usePricing();
@@ -217,7 +217,7 @@ export function PricingTiers() {
                   : 'text-ink-500 hover:text-ink-700',
               )}
             >
-              Monthly
+              {pricing.billingMonthly}
             </button>
             <button
               type="button"
@@ -229,9 +229,9 @@ export function PricingTiers() {
                   : 'text-ink-500 hover:text-ink-700',
               )}
             >
-              Annual
+              {pricing.billingAnnual}
               <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-semibold text-success">
-                Save 10%
+                {pricing.annualSavings}
               </span>
             </button>
           </div>
@@ -300,7 +300,7 @@ export function PricingTiers() {
 
                       <div className="mt-auto pt-8">
                         <Button
-                          href={tier.contactSales === true ? '/contact' : 'https://www.regattaregisters.com/contact'}
+                          href={tier.contactSales === true ? '/contact' : localize('/contact')}
                           variant={tier.popular ? 'primary' : 'outline'}
                           fullWidth
                         >
@@ -360,7 +360,7 @@ export function PricingTiers() {
                           )}
                         </span>
                         <Button
-                          href={tier.contactSales === true ? '/contact' : 'https://www.regattaregisters.com/contact'}
+                          href={tier.contactSales === true ? '/contact' : localize('/contact')}
                           variant={tier.popular ? 'primary' : 'outline'}
                           size="sm"
                         >
@@ -418,7 +418,7 @@ export function PricingTiers() {
             <h3 className="text-xl font-bold text-white">{pricing.stillHaveQuestions}</h3>
             <p className="mt-2 text-ink-300">{pricing.stillHaveQuestionsSubtitle}</p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href="https://www.regattaregisters.com/contact" size="lg">
+              <Button href={localize("/contact")} size="lg">
                 {actions.startFreeTrial}
               </Button>
               <Button

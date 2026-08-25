@@ -6,7 +6,7 @@ import { useCountry } from "@/hooks/use-country";
 
 /** Cinematic dark-hero heading — staggered page-load animations. */
 export function HeroHeading() {
-  const { content } = useCountry();
+  const { content, localize } = useCountry();
   const { hero, actions } = content.dictionary;
 
   return (
@@ -55,7 +55,7 @@ export function HeroHeading() {
       >
         {/* Primary — solid brand */}
         <Link
-          href="https://www.regattaregisters.com/contact"
+          href={localize("/contact")}
           className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-400 hover:shadow-brand-500/40 sm:w-auto"
         >
           {actions.startFreeTrial}
