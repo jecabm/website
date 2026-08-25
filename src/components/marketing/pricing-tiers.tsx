@@ -13,9 +13,9 @@ import { useCountry } from '@/hooks/use-country';
 import { formatCurrency } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
-// Comparison table rows — feature names are technical product terms, kept in English across locales.
-// Category labels come from content.dictionary.pricing.categories.
-const comparisonRows = [
+// Comparison table rows. Feature names are translated per locale — category
+// labels come from content.dictionary.pricing.categories.
+const comparisonRowsEn = [
   {
     categoryKey: 'core' as const,
     rows: [
@@ -62,6 +62,57 @@ const comparisonRows = [
       { feature: 'Email support', standard: true, pro: true, enterprise: true },
       { feature: 'Priority support', standard: false, pro: true, enterprise: true },
       { feature: 'Onboarding assistance', standard: false, pro: true, enterprise: true },
+    ],
+  },
+];
+
+const comparisonRowsEs = [
+  {
+    categoryKey: 'core' as const,
+    rows: [
+      { feature: 'Registro de activos', standard: true, pro: true, enterprise: true },
+      { feature: 'Usuarios', standard: '1', pro: '6', enterprise: 'Ilimitados' },
+      { feature: 'Inspecciones y listas de verificación', standard: true, pro: true, enterprise: true },
+      { feature: 'Importación CSV / masiva', standard: true, pro: true, enterprise: true },
+      { feature: 'Escaneo de código QR', standard: true, pro: true, enterprise: true },
+      { feature: 'Modo sin conexión', standard: false, pro: true, enterprise: true },
+    ],
+  },
+  {
+    categoryKey: 'compliance' as const,
+    rows: [
+      { feature: 'Calendario de cumplimiento', standard: true, pro: true, enterprise: true },
+      { feature: 'Alertas automáticas', standard: false, pro: true, enterprise: true },
+      { feature: 'Historial y trazabilidad', standard: true, pro: true, enterprise: true },
+      { feature: 'Normas de cumplimiento personalizadas', standard: false, pro: true, enterprise: true },
+      { feature: 'Exportación de informes regulatorios', standard: false, pro: true, enterprise: true },
+    ],
+  },
+  {
+    categoryKey: 'teamLocations' as const,
+    rows: [
+      { feature: 'Múltiples ubicaciones / sedes', standard: false, pro: true, enterprise: true },
+      { feature: 'Control de acceso por roles', standard: false, pro: true, enterprise: true },
+      { feature: 'Reserva de equipos', standard: false, pro: true, enterprise: true },
+      { feature: 'Gestión de equipo', standard: false, pro: true, enterprise: true },
+    ],
+  },
+  {
+    categoryKey: 'enterprise' as const,
+    rows: [
+      { feature: 'Formularios y campos personalizados', standard: false, pro: 'Limitado', enterprise: true },
+      { feature: 'SSO / SAML', standard: false, pro: false, enterprise: true },
+      { feature: 'Acceso a la API', standard: false, pro: false, enterprise: true },
+      { feature: 'Gerente de éxito dedicado', standard: false, pro: false, enterprise: true },
+      { feature: 'SLA personalizado', standard: false, pro: false, enterprise: true },
+    ],
+  },
+  {
+    categoryKey: 'support' as const,
+    rows: [
+      { feature: 'Soporte por correo', standard: true, pro: true, enterprise: true },
+      { feature: 'Soporte prioritario', standard: false, pro: true, enterprise: true },
+      { feature: 'Asistencia de incorporación', standard: false, pro: true, enterprise: true },
     ],
   },
 ];
@@ -122,8 +173,9 @@ function FaqItem({ q, a }: FaqItemProps) {
 }
 
 export function PricingTiers() {
-  const { content } = useCountry();
+  const { content, code } = useCountry();
   const { pricing, actions } = content.dictionary;
+  const comparisonRows = code === 'co' ? comparisonRowsEs : comparisonRowsEn;
   const { plans, loading, error, currency } = usePricing();
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
 
@@ -303,7 +355,7 @@ export function PricingTiers() {
                           {tier.name}
                           {tier.popular && (
                             <span className="ml-2 rounded-full bg-brand-100 px-2 py-0.5 text-xs uppercase text-brand-700">
-                              Popular
+                              {pricing.mostPopular}
                             </span>
                           )}
                         </span>
