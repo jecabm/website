@@ -107,7 +107,7 @@ export function ContactContent() {
           </div>
 
           {/* Details */}
-          <div className="space-y-8 px-6">
+          <div className="space-y-8 rounded-xl border border-ink-200 bg-white p-6 shadow-card sm:p-8">
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-400">
                 {c.detailsTitle}
