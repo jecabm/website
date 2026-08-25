@@ -21,7 +21,7 @@ export function AboutContent() {
 
   return (
     <>
-      <Section size="wide">
+      <Section size="wide" className="pt-28 sm:pt-20">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>

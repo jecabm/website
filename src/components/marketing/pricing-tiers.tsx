@@ -179,7 +179,7 @@ export function PricingTiers() {
             >
               Annual
               <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-semibold text-success">
-                Save 20%
+                Save 10%
               </span>
             </button>
           </div>

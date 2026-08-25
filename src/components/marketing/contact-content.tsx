@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { BrowserFrame } from "@/components/marketing/preview-frame";
 import { useCountry } from "@/hooks/use-country";
 
 export function ContactContent() {
@@ -154,38 +153,6 @@ export function ContactContent() {
               </ul>
             </div>
           </div>
-        </div>
-
-        {/* Preview: support requests, as our team sees them */}
-        <div className="mx-auto mt-16 max-w-3xl">
-          <BrowserFrame url="app.regattaregisters.com/support/inbox">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-bold text-ink-900">Support inbox</p>
-              <span className="rounded-full bg-success/15 px-2.5 py-1 text-[11px] font-semibold text-success">
-                Avg. reply: under 2 hours
-              </span>
-            </div>
-            <div className="mt-4 flex flex-col gap-2">
-              {[
-                { name: "ABC Constructions", subject: "Adding a new lifting register", status: "Open" },
-                { name: "Hutchinson", subject: "Question about annual inspections", status: "Replied" },
-                { name: "Crane Ltd", subject: "Multi-site rollout", status: "Resolved" },
-              ].map((row) => (
-                <div
-                  key={row.name}
-                  className="flex items-center justify-between rounded-lg border border-ink-100 bg-ink-50 px-3 py-2.5 text-xs"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate font-semibold text-ink-900">{row.name}</p>
-                    <p className="truncate text-ink-500">{row.subject}</p>
-                  </div>
-                  <span className="ml-3 shrink-0 rounded-full bg-white px-2.5 py-1 font-medium text-ink-500 ring-1 ring-inset ring-ink-200">
-                    {row.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </BrowserFrame>
         </div>
       </Container>
     </section>

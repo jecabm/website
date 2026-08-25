@@ -218,7 +218,7 @@ export const coContent: CountryContent = {
   contact: {
     region: 'Colombia',
     phone: '+57 1 000 0000',
-    email: 'soporte@regattaregisters.com',
+    email: 'info@regattaregisters.com',
     address: 'Bogotá, Colombia',
   },
   home: {
@@ -412,9 +412,9 @@ export const coContent: CountryContent = {
   },
   contactPage: {
     eyebrow: 'Contacto',
-    title: 'Habla con el equipo de Regatta Registers',
+    title: '¿Cómo podemos ayudarte?',
     subtitle:
-      '¿Preguntas sobre implementación, flujos de cumplimiento o precios? Estamos para ayudarte.',
+      '¿Tienes preguntas sobre Regatta Registers, necesitas asistencia técnica o con tu cuenta, quieres actualizar tu suscripción o cancelar tu cuenta? Estamos aquí para ayudarte.',
     form: {
       name: 'Nombre completo',
       company: 'Empresa',
