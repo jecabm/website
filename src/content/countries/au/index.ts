@@ -375,8 +375,8 @@ export const auContent: CountryContent = {
   },
   contactPage: {
     eyebrow: 'Contact',
-    title: 'Talk to the Regatta Registers team',
-    subtitle: "Questions about deployment, compliance workflows, or pricing? We're here to help.",
+    title: 'See how Regatta Registers can help your business.',
+    subtitle: "Whether you have a question, need technical or account support, want to update your subscription, or need to cancel your account, we're here to help.",
     form: {
       name: 'Full name',
       company: 'Company',

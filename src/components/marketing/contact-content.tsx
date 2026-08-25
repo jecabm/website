@@ -55,7 +55,7 @@ export function ContactContent() {
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-600">
             {c.eyebrow}
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight text-ink-900 sm:text-5xl">
             {c.title}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-ink-500">
