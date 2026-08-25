@@ -7,7 +7,6 @@ import { useCountry } from "@/hooks/use-country";
 const carouselLogosByCountry = {
   au: [
     { src: "/clients/Australia/Crane-Reliability-logo.svg",           alt: "Crane Reliability", className: "h-16" },
-    { src: "/clients/Australia/Technical-Inspection-services-logo.svg", alt: "Technical Inspection Services", className: "h-12" },
     { src: "/clients/Australia/ALLLIFTING_logo.svg",                  alt: "All Lifting", className: "h-16" },
   ],
   co: [
@@ -20,7 +19,9 @@ export function TrustBar() {
   const { content, code } = useCountry();
   const { trustBar } = content.home;
 
-  const carouselLogos = carouselLogosByCountry[code] ?? carouselLogosByCountry.au;
+  const baseLogos = carouselLogosByCountry[code] ?? carouselLogosByCountry.au;
+  // Repeat the base set 3x per half so a short logo list still fills the marquee
+  const carouselLogos = [...baseLogos, ...baseLogos, ...baseLogos, ...baseLogos];
   // Two identical sets — translate -50% lands exactly back at the start
   const logos = [...carouselLogos, ...carouselLogos];
 
@@ -31,7 +32,7 @@ export function TrustBar() {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .logo-marquee { animation: marquee 10s linear infinite; }
+        .logo-marquee { animation: marquee 20s linear infinite; }
       `}</style>
       <Container size="wide" className="py-8">
         <div className="flex flex-col items-center gap-5 lg:flex-row lg:justify-between lg:gap-8">

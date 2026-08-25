@@ -27,7 +27,6 @@ export const homePage = defineType({
   type: 'document',
   icon: HomeIcon,
   groups: [
-    { name: 'content', title: 'Content', default: true },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -35,7 +34,6 @@ export const homePage = defineType({
       name: 'country',
       title: 'Country',
       type: 'string',
-      group: 'content',
       options: {
         list: [
           { title: 'Australia', value: 'au' },

@@ -41,8 +41,8 @@ export function AboutContent() {
             </div>
             <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/about us img.jpg"
-                alt="About Regatta Registers"
+                src={a.heroImage.src}
+                alt={a.heroImage.alt}
                 fill
                 className="object-cover"
                 priority

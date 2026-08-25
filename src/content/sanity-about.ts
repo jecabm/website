@@ -9,6 +9,7 @@ export interface SanityAboutDoc {
     title?: string;
     intro?: string;
     secondaryIntro?: string;
+    image?: { asset?: { url?: string }; alt?: string };
   };
   stats?: StatItem[];
   mission?: {
@@ -36,6 +37,10 @@ export function mergeAboutContent(base: AboutContent, override?: SanityAboutDoc 
     title: pick(override.hero?.title, base.title),
     intro: pick(override.hero?.intro, base.intro),
     secondaryIntro: pick(override.hero?.secondaryIntro, base.secondaryIntro),
+    heroImage: {
+      src: pick(override.hero?.image?.asset?.url, base.heroImage.src),
+      alt: pick(override.hero?.image?.alt, base.heroImage.alt),
+    },
     stats: pick(override.stats, base.stats),
     mission: {
       title: pick(override.mission?.title, base.mission.title),

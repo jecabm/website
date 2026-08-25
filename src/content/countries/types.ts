@@ -190,6 +190,7 @@ export interface AboutContent {
   intro: string;
   /** Extra paragraphs shown below the hero image, separated by "\n\n". */
   secondaryIntro: string;
+  heroImage: { src: string; alt: string };
   mission: { title: string; body: string };
   stats: StatItem[];
   values: { title: string; items: FeatureItem[] };

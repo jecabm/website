@@ -44,7 +44,6 @@ export const pricingPage = defineType({
   type: 'document',
   icon: TagIcon,
   groups: [
-    { name: 'content', title: 'Content', default: true },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -52,7 +51,6 @@ export const pricingPage = defineType({
       name: 'country',
       title: 'Country',
       type: 'string',
-      group: 'content',
       options: {
         list: [
           { title: 'Australia', value: 'au' },

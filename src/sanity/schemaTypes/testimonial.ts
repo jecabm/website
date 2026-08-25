@@ -49,6 +49,9 @@ export const testimonial = defineType({
       title: 'Author Photo',
       type: 'image',
       options: { hotspot: true },
+      fields: [
+        defineField({ name: 'alt', type: 'string', title: 'Alt text' }),
+      ],
     }),
     defineField({
       name: 'featured',

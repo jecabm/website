@@ -27,7 +27,6 @@ export const aboutPage = defineType({
   type: 'document',
   icon: UsersIcon,
   groups: [
-    { name: 'content', title: 'Content', default: true },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -35,7 +34,6 @@ export const aboutPage = defineType({
       name: 'country',
       title: 'Country',
       type: 'string',
-      group: 'content',
       options: {
         list: [
           { title: 'Australia', value: 'au' },
@@ -67,6 +65,15 @@ export const aboutPage = defineType({
           type: 'text',
           rows: 5,
           description: 'Separate paragraphs with a blank line.',
+        }),
+        defineField({
+          name: 'image',
+          title: 'Hero image',
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({ name: 'alt', type: 'string', title: 'Alt text' }),
+          ],
         }),
       ],
     }),

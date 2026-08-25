@@ -7,7 +7,6 @@ export const contactPage = defineType({
   type: 'document',
   icon: EnvelopeIcon,
   groups: [
-    { name: 'content', title: 'Content', default: true },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -15,7 +14,6 @@ export const contactPage = defineType({
       name: 'country',
       title: 'Country',
       type: 'string',
-      group: 'content',
       options: {
         list: [
           { title: 'Australia', value: 'au' },

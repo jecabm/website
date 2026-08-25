@@ -66,6 +66,7 @@ export const siteSettings = defineType({
           name: 'logo',
           title: 'Logo',
           type: 'image',
+          options: { hotspot: true },
           fields: [defineField({ name: 'alt', type: 'string', title: 'Alt text' })],
         }),
         defineField({ name: 'email', title: 'Contact Email', type: 'string' }),
